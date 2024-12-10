@@ -1,7 +1,5 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { StrictMode, Suspense } from 'react';
+import { createRoot } from 'react-dom/client';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import BatchTable from "./Components/BatchTable";
 import AdminLayout from './Components/Layouts/AdminLayout';
@@ -16,17 +14,18 @@ import Batch from './Pages/Batch';
 import BulkEntryModuleForm from './Pages/BulkEntryModuleForm';
 import BulkEntryXlsx from './Pages/BulkUserEntry';
 import Dashboard from './Pages/Dashboard';
-import TraineeDashboard from './Pages/TraineeDashboard';
+import Exam from './Pages/Exam';
+import Exams from './Pages/Exams';
 import Homepage from './Pages/HomePage';
 import Login from './Pages/LoginPage';
 import Logout from './Pages/Logout';
-import Messages from './Pages/Messages';
 import SingleEntryUser from './Pages/SingleEntryUser';
+import TraineeDashboard from './Pages/TraineeDashboard';
 import TraineeInfo from './Pages/TraineeInfo';
 import Users from './Pages/Users';
 import './index.css';
 import { AuthProvider, RequireAuth } from './services/auth';
-import { getBatches, getModules } from './services/loaderFunctions';
+import { getBatch, getBatches, getModules } from './services/loaderFunctions';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,18 +43,55 @@ const router = createBrowserRouter(
             */ }
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Users />} />
-          <Route path="/exams" element={<Messages />} />
-          <Route path="/exams/single" element={<TraineeExamData />} loader={getBatches} />
+          
+          {/**Exams routes */}
+          <Route path="/exams" element={
+            <Suspense fallback={<div>Loading batch details...</div>}>
+              <Exams />
+            </Suspense>
+          } loader={getBatches} />
+          <Route path="/exams/single" element={
+            <Suspense fallback={<div>Loading batch details...</div>}>
+              <TraineeExamData />
+            </Suspense>
+          } loader={getBatches} />
+          <Route path="/exams/addbulk" element={
+            <Suspense fallback={<div>Loading batch details...</div>}>
+              <BulkEntryModuleForm />
+            </Suspense>
+          } loader={getModules} />
+          <Route path="/exams/:assessmentId" element={
+            <Suspense fallback={<div>Loading batch details...</div>}>
+              <Exam />
+            </Suspense>
+          } loader={getBatches} />
+
           <Route path="/dashboard/:empId" element={<TraineeInfo />} />
 
-          <Route path="/trainees/singleentry" element={<SingleEntryUser />} loader={getBatches} />
-          <Route path="/trainees/addbulk" element={<BulkEntryXlsx />} />
-          <Route path="/exams/addbulk" element={<BulkEntryModuleForm />} loader={getModules} />
-          <Route path="/trainees/alltrainees" element={<TraineeTable />} loader={getBatches} />
+          <Route path="/users/singleentry" element={
+            <Suspense fallback={<div>Loading batch details...</div>}>
+              <SingleEntryUser />
+            </Suspense>
+          } loader={getBatches} />
+          <Route path="/users/addbulk" element={<BulkEntryXlsx />} />
+          
+          <Route path="/users" element={
+            <Suspense fallback={<div>Loading batch details...</div>}>
+              <TraineeTable />
+            </Suspense>
+          } loader={getBatches} />
 
 
-          <Route path="/batch" element={<BatchTable />} loader={getBatches} />
-          <Route path="/batch/:batchName" element={<Batch />} />
+          <Route path="/batch" element={
+            <Suspense fallback={<div>Loading batch details...</div>}>
+              <BatchTable />
+            </Suspense>
+          } loader={getBatches} />
+          <Route path="/batch/:batchId" element={
+            <Suspense fallback={<div>Loading batch details...</div>}>
+              <Batch />
+            </Suspense>
+          } loader={getBatch} />
           <Route path="/graph" element={<Analytics />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/table/:empId" element={<TraineeInfo />} />
@@ -80,9 +116,7 @@ const router = createBrowserRouter(
 )
 
 createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router}>
-    <StrictMode>
-      <Homepage />
-    </StrictMode>
-  </RouterProvider>,
+  <StrictMode>
+    <RouterProvider router={router} />
+  </StrictMode>,
 )

@@ -1,62 +1,67 @@
-import { NavLink } from "react-router-dom";
-import { FaBars, FaHome,FaUser} from "react-icons/fa";
-import { MdMessage } from "react-icons/md";
-import { AiFillPieChart } from 'react-icons/ai';
-
-
-import { FaSignOutAlt } from 'react-icons/fa';
-
-import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
+import { AiFillPieChart } from 'react-icons/ai';
+import { BiSolidSelectMultiple } from "react-icons/bi";
+import { FaBars, FaSignOutAlt, FaUser, FaUsers } from "react-icons/fa";
+import { MdAddCircle, MdOutlineBatchPrediction } from "react-icons/md";
+import { PiExamFill } from "react-icons/pi";
+import { RiDashboardFill, RiUserSettingsFill } from "react-icons/ri";
+import { NavLink } from "react-router-dom";
 import SidebarMenu from "./SidebarMenu";
+
 const routes = [
   {
     path: "/dashboard",
     name: "Dashboard",
-    icon: <FaHome/>,
+    icon: <RiDashboardFill />,
   },
   {
     path: "/profile",
     name: "Personal Information",
-    icon: <FaUser />,
+    icon: <RiUserSettingsFill />,
     
   },
   {
     path: "/exams",
     name: "Exams",
-    icon: <MdMessage />,
+    icon: <PiExamFill />,
     subRoutes: [
+      {
+        path: "/exams",
+        name: "All Exams",
+        icon: <PiExamFill />,
+      },
       {
         path: "/exams/single",
         name: "Single Entry",
-        icon: <FaUser />,
+        icon: <MdAddCircle />,
       },
       {
         path: "/exams/addbulk",
         name: "Bulk Entry",
-        icon: <FaUser />,
+        icon: <BiSolidSelectMultiple />,
       },
     ],
   },
   {
-    path: "/trainees",
-    name: "Trainees Details",
-    icon: <MdMessage />,
+    path: "/users",
+    name: "Users Details",
+    icon: <FaUser />,
     subRoutes: [
       {
-        path: "/trainees/singleentry",
+        path: "/users/singleentry",
         name: "Single Entry",
-        icon: <FaUser />,
+        icon: <MdAddCircle />,
       },
       {
-        path: "/trainees/addbulk",
+        path: "/users/addbulk",
         name: "Bulk Entry",
-        icon: <FaUser />,
+        icon: <BiSolidSelectMultiple />,
       },
       {
-        path: "/trainees/alltrainees",
-        name: "All Trainees",
-        icon: <FaUser />,
+        path: "/users",
+        name: "All Users",
+        icon: <FaUsers />,
       },
     ],
   },
@@ -68,7 +73,7 @@ const routes = [
   {
     path: "/batch",
     name: "Batch",
-    icon: <FaUser />,
+    icon: <MdOutlineBatchPrediction />,
   },
   {
     path: "/logout",

@@ -2,7 +2,7 @@ import React from 'react'
 import { object, string } from 'yup';
 import { useFormik } from 'formik';
 import { useAuth } from '../services/auth.jsx';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 let loginSchema = object().shape({
   employeeId: string().required("Employee Id is required"),
@@ -63,7 +63,7 @@ const Login = () => {
                 Login
               </button>
               <div className="mt-4 text-center">
-                <a href="/" className="text-blue-500 hover:underline">Forgot Password?</a>
+                <Link to="/" className="text-blue-500 hover:underline">Forgot Password?</Link>
               </div>
             </form>
           </div>

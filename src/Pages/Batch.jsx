@@ -1,21 +1,13 @@
 import { useEffect, useState } from "react";
-import axios from 'axios';
-
+import { useLoaderData } from "react-router";
 const Batch = () => {
-  const [batch, setBatch] = useState({});
-  useEffect(() => {
-    axios.get('/api/admin/batches')
-      .then(res => setBatch(res.data.data[0]))
-      .catch(console.log("Error in fetching "));
-  }, []);
 
+  let batch = useLoaderData();
   console.log(batch);
-
   return (
     <>
       <div className="flex-1 m-10" >
-        <h1 className="pt-5 pl-5 pr-10 font-extrabold text-3xl font-serif">{batch.batchName}</h1>
-        
+        <h3 className="pt-5 pl-5 pr-10 font-bold text-3xl">{batch?.batchName}</h3>
       </div>
     </>
   );

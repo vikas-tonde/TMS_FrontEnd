@@ -1,65 +1,72 @@
+import React, { useEffect, useState } from 'react'
 import { createColumnHelper, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table";
-import { useEffect, useState } from "react";
-import { useLoaderData } from "react-router";
 import { Link } from "react-router-dom";
+import { useLoaderData } from "react-router";
 import api from "../services/api";
 
-const TraineeTable = () => {
+function Exams() {
   const batches = useLoaderData();
-  const [trainees, setTrainees] = useState([]);
+  const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedBatch, setSelectedBatch] = useState("");
+  
   useEffect(() => {
-    const fetchTrainees = async () => {
+    (async () => {
       try {
         console.log(selectedBatch);
-        const response = await api.get(`/api/admin/trainees/info/${selectedBatch}`);
+        const response = await api.get(`/api/admin//assessments/${selectedBatch}`);
         console.log(response.data.data);
-        setTrainees(response.data.data);
+        setExams(response.data.data);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching trainees:", error);
+        console.error("Error fetching exams:", error);
         setLoading(false);
       }
-    };
-    fetchTrainees();
+    })();
   }, [selectedBatch]);
 
   const columnHelper = createColumnHelper();
 
   const columns = [
-    columnHelper.accessor("", {
+    columnHelper.accessor("srno", {
       id: "srno",
       cell: (info) => <span>{info.row.index + 1}</span>,
-      header: "",
+      header: "Sr. No.",
     }),
-    columnHelper.accessor("empId", {
+    columnHelper.accessor("assessmentName", {
       cell: (info) => <span>{info.getValue()}</span>,
-      header: "Employee ID",
+      header: "Assessment Name",
     }),
-    columnHelper.accessor("name", {
+    columnHelper.accessor("moduleName", {
       cell: (info) => <span>{info.getValue()}</span>,
-      header: "Name",
+      header: "Module Name",
     }),
-    columnHelper.accessor("email", {
+    columnHelper.accessor("date", {
       cell: (info) => <span>{info.getValue()}</span>,
-      header: "Email",
+      header: "Date",
     }),
-    columnHelper.accessor("", {
+    columnHelper.accessor("totalMarks", {
+      cell: (info) => <span>{info.getValue()}</span>,
+      header: "Total Marks",
+    }),
+    columnHelper.accessor("assessmentType", {
+      cell: (info) => <span>{info.getValue()}</span>,
+      header: "Assessment Type",
+    }),
+    columnHelper.accessor("Action", {
       id: "edit",
       cell: (info) => {
-        const slug = info.row.original.employeeId;
-        return <Link to={`/table/${slug}`}>Edit</Link>;
+        const slug = info.row._id;
+        return <Link to={`/exams/${slug}`}>Edit</Link>;
       },
-      header: "",
+      header: "Action",
     }),
   ];
-  const [globalFilter] = useState("");
 
   const [search, setSearch] = useState("");
 
   const table = useReactTable({
-    data: trainees,
+    data: exams,
     columns,
     state: {},
     getFilteredRowModel: getFilteredRowModel(),
@@ -110,18 +117,6 @@ const TraineeTable = () => {
           </div>
         </div>
 
-
-
-        <div className="flex justify-end">
-
-          <button className="text-white bg-[#0A1C3E] hover:text-[#0A1C3E] border border-white hover:bg-white hover:border-[#0A1C3E] focus:ring-4 focus:outline-none focus:ring-[#0A1C3E]-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4 me-2 mb-10 dark:border-[#0A1C3E] dark:text-[#0A1C3E] dark:hover:text-white  dark:focus:ring-[#0A1C3E]">Deactivate</button>
-
-          <button className="text-white bg-[#0A1C3E] hover:text-[#0A1C3E] border border-white hover:bg-white hover:border-[#0A1C3E] focus:ring-4 focus:outline-none focus:ring-[#0A1C3E]-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4 me-2 mb-10 dark:border-[#0A1C3E] dark:text-[#0A1C3E] dark:hover:text-white  dark:focus:ring-[#0A1C3E]">Activate</button>
-
-          <button className="text-white bg-[#0A1C3E] hover:text-[#0A1C3E] border border-white hover:bg-white hover:border-[#0A1C3E] focus:ring-4 focus:outline-none focus:ring-[#0A1C3E]-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4 me-2 mb-10 dark:border-[#0A1C3E] dark:text-[#0A1C3E] dark:hover:text-white  dark:focus:ring-[#0A1C3E]">Check</button>
-
-        </div>
-
         <table className="shadow-sm p-6 h-max w-full text-left mb-5 border-spacing-0" id="table-to-xls">
           <thead className="bg-blue text-white p-3 h-16 ">
             {table.getHeaderGroups().map((headerGroup) => (
@@ -138,41 +133,39 @@ const TraineeTable = () => {
             ))}
           </thead>
           <tbody>
-            {trainees?.length ? (
-              trainees.map((row, i) => (
+            {exams?.length ? (
+              exams.map((row, i) => (
                 <tr
                   key={row.i}
                   className={`
-                  ${i % 2 === 0 ? "bg-white" : "bg-white"} border-b border-gray-300 h-16 hover:bg-neutral-200 
-                  `}
+                    ${i % 2 === 0 ? "bg-white" : "bg-white"} border-b border-gray-300 h-16 hover:bg-neutral-200 
+                    `}
                 >
                   <td className="px-4 py-2 ">
-                    <input
-                      type="checkbox"
-                      // Assuming row.srno is unique
-                      value={row.srno}
-                    // Add your checkbox handler function here
-                    />
-                    {row.srno}
-
+                    {i+1}
                   </td>
                   <td className="px-4 py-2 ">
-                    {row.employeeId}
+                    {row.assessmentName}
                   </td>
                   <td className="px-4 py-2 ">
-                    {row.firstName} {row.lastName}
+                    {row.moduleName}
                   </td>
                   <td className="px-4 py-2 ">
-                    {row.email}
+                    {row.date}
+                  </td>
+                  <td className="px-4 py-2 ">
+                    {row.totalMarks}
+                  </td>
+                  <td className="px-4 py-2 ">
+                    {row.assessmentType}
                   </td>
                   <td key="edit" className="px-4 py-2">
-                    <Link to={`/table/${row.employeeId}`}>
+                    <Link to={`/exams/${row._id}`}>
                       <button className="bg-blue text-white font-bold py-2 px-4 rounded" >
-                        Edit
+                        Details
                       </button>
                     </Link>
                   </td>
-
                 </tr>
               ))
             ) : (
@@ -185,7 +178,7 @@ const TraineeTable = () => {
 
       </div>
     </>
-  );
-};
+  )
+}
 
-export default TraineeTable;
+export default Exams

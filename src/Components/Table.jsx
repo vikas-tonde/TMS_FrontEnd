@@ -124,7 +124,7 @@ const Table = () => {
                   <td className="px-4 py-2 ">{i+1}</td>
                   <td className="px-4 py-2 ">{row.employeeId}</td>
                   <td className="px-4 py-2 ">{row.firstName +" "+ row.lastName}</td>
-                  <td className="px-4 py-2 ">{row.Exams[0].averageMarks}</td>
+                  <td className="px-4 py-2 ">{row.Exams[0]?.averageMarks}</td>
                   <td className="px-4 py-2">
                     <Link to={`/dashboard/${row.employeeId}`}>
                       <button className="bg-[#0A1C3E] text-white font-bold py-2 px-4 rounded" >
