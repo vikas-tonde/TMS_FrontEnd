@@ -20,12 +20,22 @@ export const getBatches = async () => {
     }
 }
 
+export const getExam = async ({params}) => {
+    const { assessmentId } = params;
+    try {
+        console.log("Calling Batch api");
+        let response = await api.get(`/api/admin/assessments/assessment/${assessmentId}`);
+        return response.data.data;
+    } catch (error) {
+        return [];
+    }
+}
 export const getBatch = async ({params}) => {
     const { batchId } = params;
     console.log(batchId);
     try {
         console.log("Calling Batch api");
-        let response = await api.get(`/api/admin//batch/${batchId}`);
+        let response = await api.get(`/api/admin/batch/${batchId}`);
         return response.data.data;
     } catch (error) {
         return [];

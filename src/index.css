@@ -4,6 +4,7 @@
 
 body{
     font-family: Serif Sans-serif;
-    background-color: #fff;
+    overflow-x: hidden;
+    /* background-color: #fff; */
     /* background-color: #e8f6ff; */
 }

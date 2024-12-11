@@ -25,7 +25,7 @@ import TraineeInfo from './Pages/TraineeInfo';
 import Users from './Pages/Users';
 import './index.css';
 import { AuthProvider, RequireAuth } from './services/auth';
-import { getBatch, getBatches, getModules } from './services/loaderFunctions';
+import { getBatch, getBatches, getExam, getModules } from './services/loaderFunctions';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -43,7 +43,7 @@ const router = createBrowserRouter(
             */ }
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Users />} />
-          
+
           {/**Exams routes */}
           <Route path="/exams" element={
             <Suspense fallback={<div>Loading batch details...</div>}>
@@ -64,7 +64,7 @@ const router = createBrowserRouter(
             <Suspense fallback={<div>Loading batch details...</div>}>
               <Exam />
             </Suspense>
-          } loader={getBatches} />
+          } loader={getExam} />
 
           <Route path="/dashboard/:empId" element={<TraineeInfo />} />
 
@@ -95,7 +95,6 @@ const router = createBrowserRouter(
           <Route path="/graph" element={<Analytics />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/table/:empId" element={<TraineeInfo />} />
-
         </Route>
 
         <Route element={<RequireAuth> <TraineeLayout /> </RequireAuth>}>

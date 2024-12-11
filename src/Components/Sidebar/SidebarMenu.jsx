@@ -49,8 +49,8 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
   }, [isOpen]);
   return (
     <>
-      <div className="menu flex items-center p-4" onClick={toggleMenu}>
-        <div className="menu_item flex items-center">
+      <div className="menu w-min flex items-center p-3 cursor-pointer h-10 hover:bg-gray-200" onClick={toggleMenu}>
+        <div className="menu_item flex items-center ">
           <div className="icon mr-2">{route.icon}</div>
           <AnimatePresence>
             {isOpen && (
@@ -71,8 +71,8 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
             animate={
               isMenuOpen
                 ? {
-                    rotate: -180,
-                  }
+                  rotate: -180,
+                }
                 : { rotate: 0 }
             }
           >
@@ -89,13 +89,13 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
             initial="hidden"
             animate="show"
             exit="hidden"
-            className="menu_container bg-[#102449] w-full p-2"
+            className="menu_container bg-gray-200 w-full p-2"
           >
             {route.subRoutes.map((subRoute, i) => (
-              <motion.div variants={menuItemAnimation} key={i} custom={i}>
+              <motion.div variants={menuItemAnimation} key={i} custom={i} className="hover:bg-gray-50">
                 <NavLink
                   to={subRoute.path}
-                  className="link ml-8 flex items-center px-2 py-2 text-white hover:bg-gray-700"
+                  className="link ml-5 flex items-center px-2 py-2 text-black"
                 >
                   <div className="icon mr-3">{subRoute.icon}</div>
                   <motion.div className="link_text">{subRoute.name}</motion.div>

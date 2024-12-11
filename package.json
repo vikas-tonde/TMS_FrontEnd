@@ -7,12 +7,13 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "host": "vite --host",
+    "hostDebug": "vite --host --debug"
   },
   "dependencies": {
     "@tanstack/react-table": "^8.20.5",
     "axios": "^1.7.9",
-    "flowbite-react": "^0.10.2",
     "formik": "^2.4.6",
     "framer-motion": "^11.13.1",
     "react": "^18.3.1",

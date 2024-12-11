@@ -13,10 +13,12 @@ const TraineeTable = () => {
     const fetchTrainees = async () => {
       try {
         console.log(selectedBatch);
-        const response = await api.get(`/api/admin/trainees/info/${selectedBatch}`);
-        console.log(response.data.data);
-        setTrainees(response.data.data);
-        setLoading(false);
+        if (selectedBatch) {
+          const response = await api.get(`/api/admin/trainees/info/${selectedBatch}`);
+          console.log(response.data.data);
+          setTrainees(response.data.data);
+          setLoading(false);
+        }
       } catch (error) {
         console.error("Error fetching trainees:", error);
         setLoading(false);

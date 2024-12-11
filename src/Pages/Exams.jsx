@@ -9,15 +9,17 @@ function Exams() {
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedBatch, setSelectedBatch] = useState("");
-  
+
   useEffect(() => {
     (async () => {
       try {
         console.log(selectedBatch);
-        const response = await api.get(`/api/admin//assessments/${selectedBatch}`);
-        console.log(response.data.data);
-        setExams(response.data.data);
-        setLoading(false);
+        if (selectedBatch) {
+          const response = await api.get(`/api/admin/assessments/${selectedBatch}`);
+          console.log(response.data.data);
+          setExams(response.data.data);
+          setLoading(false);
+        }
       } catch (error) {
         console.error("Error fetching exams:", error);
         setLoading(false);
@@ -77,7 +79,7 @@ function Exams() {
   return (
     <>
       <div className=" mx-auto max-w-full md:p-3 2xl:p-6">
-        <h1 className="text-2xl font-semibold text-center py-2 text-[#0A1C3E] dark:text-white border-b border-gray-200 dark:border-gray-700">Table of Trainee</h1>
+        <h1 className="text-2xl font-semibold text-center py-2 text-[#0A1C3E] dark:text-white border-b border-gray-200 dark:border-gray-700">Table of Exams</h1>
 
         <div className="" x-data="{ search: '' }">
           <div className=" mb-2 w-50 flex rounded-md">
@@ -93,12 +95,12 @@ function Exams() {
           </div>
         </div>
 
-        <div className="m-10 col-span-full flex w items-center ">
+        <div className="m-10 col-span-full flex w items-center justify-center">
           <label
             htmlFor="batch"
-            className="block text-xl font-medium  text-gray-900 mr-2"
+            className="block text-xl font-medium h-9 mt-4  text-gray-900 mr-2"
           >
-            Select batch
+            Select batch :
           </label>
           <div className="mt-4 pl-10">
             <select
@@ -142,7 +144,7 @@ function Exams() {
                     `}
                 >
                   <td className="px-4 py-2 ">
-                    {i+1}
+                    {i + 1}
                   </td>
                   <td className="px-4 py-2 ">
                     {row.assessmentName}

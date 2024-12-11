@@ -19,7 +19,7 @@ const routes = [
     path: "/profile",
     name: "Personal Information",
     icon: <RiUserSettingsFill />,
-    
+
   },
   {
     path: "/exams",
@@ -86,7 +86,7 @@ const routes = [
 const SideBar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-  
+
   const showAnimation = {
     hidden: {
       opacity: 1,
@@ -101,7 +101,7 @@ const SideBar = ({ children }) => {
       padding: "5px 15px",
       width: "180px",
       transition: {
-      duration: 0.9,
+        duration: 0.9,
 
       },
     },
@@ -119,10 +119,10 @@ const SideBar = ({ children }) => {
               type: "spring",
               damping: 10,
             },
-        
+
           }}
-          className={`sidebar bg-[#0A1C3E] text-white flex flex-col min-h-screen`}
-        
+          className={`sidebar bg-gray-100 text-black flex flex-col min-h-screen shadow-lg shadow-black`}
+
         >
           <div className="flex flex-none content-center justify-between p-4">
             <AnimatePresence>
@@ -134,19 +134,19 @@ const SideBar = ({ children }) => {
                   exit="hidden"
                   className="logo"
                 >
-          Admin Dashboard
+                  Admin Dashboard
                 </motion.h1>
               )}
             </AnimatePresence>
 
-            <div className="bars ">
-              <FaBars onClick={toggle} />
+            <div onClick={toggle} className="bars cursor-pointer">
+              <FaBars />
             </div>
           </div>
-          
+
 
           <section className="routes">
-            <div className="flex flex-col flex-wrap justify-between items-start ">
+            <div className="flex flex-col flex-wrap justify-between items-start">
               {routes.map((route, index) => {
                 if (route.subRoutes) {
                   return (
@@ -164,10 +164,10 @@ const SideBar = ({ children }) => {
                   <NavLink
                     to={route.path}
                     key={index}
-                    className="link"
+                    className="link "
                     activeclassname="active"
                   >
-                    <div className="flex items-center p-4">
+                    <div className="flex items-center p-4 hover:bg-gray-200 h-10">
                       <div className="mr-4">{route.icon}</div>
                       <div>
                         <AnimatePresence>

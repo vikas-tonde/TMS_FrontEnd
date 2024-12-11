@@ -12,7 +12,6 @@ const Table = () => {
   const incrementSrno = () => {
     setSrno(srno + 1);
   };
-  //const [selectedBatch, setSelectedBatch] = useState("");
 
   useEffect(() => {
     const fetchTrainees = async () => {
@@ -82,14 +81,14 @@ const Table = () => {
         <h1 className="text-2xl font-semibold text-center py-2 text-[#0A1C3E] dark:text-white border-b border-gray-200 dark:border-gray-700">Table of Trainee</h1>
 
         <div className="" x-data="{ search: '' }">
-          <div className=" mb-2 w-50 flex rounded-md">
+          <div className=" mb-2 w-50 flex rounded-md justify-center">
             <svg className="w-5 h-8 pl-1 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
             </svg>
             <input
               type="search"
               onChange={(e) => { setsearch(e.target.value) }}
-              className="h-8 px-4 py-1 w-1/3 text-gray-800 focus:outline-none"
+              className="h-8 px-4 py-1 w-1/2 text-gray-800 focus:outline-none"
               placeholder="Search Trainee by Id / Name"
               x-model="search" />
           </div>
@@ -113,7 +112,9 @@ const Table = () => {
           <tbody>
             {trainees.length ? (
               trainees.filter((item) => {
-                return search.toLowerCase() === '' ? item : item.employeeId.toLowerCase().includes(search) || item.name.toLowerCase().includes(search)
+                let searchValue = search.toLowerCase();
+                let name = item.firstName +" "+ item.lastName;
+                return search.toLowerCase() === '' ? item : item.employeeId.toLowerCase().includes(searchValue) || name.toLowerCase().includes(searchValue)
               }).map((row, i) => (
                 <tr
                   key={i}
