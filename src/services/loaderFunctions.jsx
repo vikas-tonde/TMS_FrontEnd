@@ -27,7 +27,7 @@ export const getExam = async ({params}) => {
         let response = await api.get(`/api/admin/assessments/assessment/${assessmentId}`);
         return response.data.data;
     } catch (error) {
-        return [];
+        return {};
     }
 }
 export const getBatch = async ({params}) => {
@@ -38,7 +38,7 @@ export const getBatch = async ({params}) => {
         let response = await api.get(`/api/admin/batch/${batchId}`);
         return response.data.data;
     } catch (error) {
-        return [];
+        return {};
     }
 }
 
