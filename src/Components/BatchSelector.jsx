@@ -18,7 +18,7 @@ const Selector = ({ loader }) => {
   }, [loader]);
 
   return (
-    <div className="w-72 m-5 font-medium outline outline-2 outline-offset-2 rounded-lg">
+    <div className="m-1 py-1 w-full rounded-lg border-2 border-gray-600 text-black-700 sm:text-sm">
       <div
         onClick={() => setOpen(!open)}
         className={`bg-white w-full p-2 flex items-center justify-between rounded ${
@@ -33,18 +33,18 @@ const Selector = ({ loader }) => {
         <BiChevronDown size={20} className={`${open && "rotate-180"}`} />
       </div>
       <ul
-        className={`bg-white mt-2 overflow-y-auto ${
+        className={`bg-white overflow-x-hidden ${
           open ? "max-h-60" : "max-h-0"
         }`}
       >
-        <div className="flex items-center px-2 sticky top-0 bg-white">
+        <div className="flex items-center px-1 sticky bg-white">
           <AiOutlineSearch size={18} className="text-gray-700" />
           <input
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value.toLowerCase())}
             placeholder="Enter Batch Name"
-            className="placeholder:text-gray-700 p-2 outline-none"
+            className="placeholder:text-gray-700 p-2 outline-none flex-grow"
           />
         </div>
         {batches?.map((batch) => (
