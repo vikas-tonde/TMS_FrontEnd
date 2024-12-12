@@ -78,10 +78,17 @@ const Table = () => {
   return (
     <>
       <div className=" mx-auto max-w-full md:p-3 2xl:p-6">
+      <span className="relative flex justify-center">
+  <div
+    className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-transparent bg-gradient-to-r from-transparent via-gray-500 to-transparent opacity-75"
+  ></div>
+
+  <span className="relative z-10 bg-white px-6">Lorem, ipsum dolor</span>
+</span>
         <h1 className="text-2xl font-semibold text-center py-2 text-[#0A1C3E] dark:text-white border-b border-gray-200 dark:border-gray-700">Table of Trainee</h1>
 
         <div className="" x-data="{ search: '' }">
-          <div className=" mb-2 w-50 flex rounded-md justify-center">
+          <div className=" mx-2 w-50 flex rounded-md">
             <svg className="w-5 h-8 pl-1 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
             </svg>
