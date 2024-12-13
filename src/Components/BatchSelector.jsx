@@ -50,7 +50,7 @@ const Selector = ({ loader }) => {
         {batches?.map((batch) => (
           <li
             key={batch._id}
-            className={`p-2 text-sm hover:bg-sky-600 hover:text-sky
+            className={`p-2 text-sm hover:bg-gray-200 hover:text-sky
             ${
               batch._id === selected &&
               "bg-sky-600 text-sky"

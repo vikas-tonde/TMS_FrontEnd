@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -11,31 +11,31 @@ const Statistics = () => {
       name: "Vikas Tonde",
       email: "vikas.tonde@intelizign.com",
       score: 92,
-      image: "https://randomuser.me/api/portraits/men/1.jpg", // Unique image for Vikas
+      image: "https://randomuser.me/api/portraits/men/1.jpg",
     },
     {
       name: "Shivkanya Doiphode",
       email: "shivkanya.doiphode@intelizign.com",
       score: 90,
-      image: "https://randomuser.me/api/portraits/women/2.jpg", // Unique image for Shivkanya
+      image: "https://randomuser.me/api/portraits/women/2.jpg",
     },
     {
       name: "Rishi Rathod",
       email: "rishi.rathod@intelizign.com",
       score: 88,
-      image: "https://randomuser.me/api/portraits/men/3.jpg", // Unique image for Rishi
+      image: "https://randomuser.me/api/portraits/men/3.jpg",
     },
     {
       name: "Rutika Vale",
       email: "rutika.vale@intelizign.com",
       score: 87,
-      image: "https://randomuser.me/api/portraits/women/4.jpg", // Unique image for Rutika
+      image: "https://randomuser.me/api/portraits/women/4.jpg",
     },
     {
       name: "Trupti Panhale",
       email: "trupti.panhale@intelizign.com",
       score: 85,
-      image: "https://randomuser.me/api/portraits/women/5.jpg", // Unique image for Trupti
+      image: "https://randomuser.me/api/portraits/women/5.jpg",
     },
   ]);
 
@@ -43,11 +43,13 @@ const Statistics = () => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
     arrows: false,
+    vertical: true,
+    verticalSwiping: true,
   };
 
   return (
@@ -57,31 +59,24 @@ const Statistics = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* Toppers Slider Section */}
           <div className="items-center">
-            <h2 className="text-lg font-semibold text-center py-1 text-[#0A1C3E]">Toppers</h2>
+            <span className="relative flex justify-center">
+              <div className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-transparent bg-gradient-to-r from-transparent via-gray-500 to-transparent opacity-75"></div>
+              <span className="text-lg font-semibold relative z-10 text-[#0A1C3E] bg-white px-6">Toppers</span>
+            </span>
             <Slider {...settings} className="max-w-3xl mx-auto">
               {entries.map((entry, index) => (
                 <div key={index} className="py-1 sm:py-4">
                   <div className="w-full p-1">
-                    <div className="relative mb-32 max-w-sm mx-auto mt-24">
-                      <div className="rounded overflow-hidden shadow-md bg-white">
-                        <div className="absolute -mt-20 w-full flex justify-center">
-                          <div className="h-32 w-32">
-                            {/* Displaying unique image for each entry */}
-                            <img
-                              src={entry.image}
-                              className="rounded-full object-cover h-full w-full shadow-md"
-                              alt="User avatar"
-                            />
-                          </div>
-                          <div className=" mt-4">
-                            <h1 className="font-bold text-lg text-center mb-1">{entry.name}</h1>
-                            <p className="text-gray-800 flex-wrap font-semibold text-sm text-center">Total Score:
-                            <span> {entry.score}</span></p>
-                            <p className="text-center flex-wrap text-gray-600 text-base font-semibold">
-                              Email Id: <span>{entry.email}</span>
-                            </p>
-                          </div>
-                        </div>
+                    <div className="flex items-center gap-4 bg-white rounded-lg shadow-md p-4">
+                      <img
+                        src={entry.image}
+                        alt={entry.name}
+                        className="w-20 h-20 rounded-full object-cover"
+                      />
+                      <div>
+                        <h3 className="text-lg font-medium text-gray-900">{entry.name}</h3>
+                        <p className="text-sm text-gray-600">Score: {entry.score}</p>
+                        <p className="text-sm text-gray-600">Email: {entry.email}</p>
                       </div>
                     </div>
                   </div>
@@ -92,7 +87,7 @@ const Statistics = () => {
 
           {/* Statistics Section */}
           <div className="flex justify-center">
-            <div className="grid grid-cols-1 md:grid-rows-3 gap-3 md:max-w-3xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-rows-3 gap-6 md:max-w-3xl mx-auto">
               {[
                 { label: "Number of Exams", value: 18, description: "Number of exams conducted during the training program." },
                 { label: "Number of Trainees", value: 27, description: "Number of trainees currently enrolled in the training program." },
@@ -100,7 +95,7 @@ const Statistics = () => {
               ].map((stat, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center transform hover:scale-105 transition duration-300 bg-[#0A1C3E] p-6 m-2 rounded-lg shadow-md text-white"
+                  className="flex items-center transform hover:scale-105 transition duration-300 bg-[#0A1C3E] p-6 m-1 rounded-lg shadow-md text-white"
                 >
                   <div className="flex-1 px-4 min-w-0">
                     <h2 className="text-lg font-semibold">{stat.label}</h2>

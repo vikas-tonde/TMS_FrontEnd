@@ -15,7 +15,7 @@ const Dashboard = () => {
         </Link>
 
         {/* StatisticsTabsMenu without 3D effect */}
-        <div className="mt-6 mx-6 shadow-xl rounded-lg p-6 bg-white">
+        <div className="mt-4 mx-6 shadow-xl rounded-lg p-3 bg-white">
           <StatisticsTabsMenu />
         </div>
       </div>

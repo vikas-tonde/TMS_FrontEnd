@@ -2,6 +2,7 @@
 import {useState } from "react";
 import { useAuth } from '../services/auth'
 import * as yup from 'yup'
+import { Link } from "react-router-dom";
 
 const Users = () => {
 
@@ -82,9 +83,17 @@ const Users = () => {
   return (  
     <>
     {/* <Space size={20} direction="vertical"></Space> */}
-    <h1 className="pt-5 pl-5 pr-10 font-extrabold text-3xl font-serif">Personal Information</h1>
+    <div className="flex-1 bg-gray-500 bg-opacity-40 pb-6 backdrop-blur-md min-h-screen">
+        <Link 
+          to='/profile' 
+          className="block py-3 px-3 font-bold text-3xl text-gray-700 Times text-center mx-auto"
+        >
+          Personal Information
+        </Link>
 
-    <div className="flex place-items-center justify-center p-3 w-100">
+        {/* StatisticsTabsMenu without 3D effect */}
+        <div className="mt-4 mx-6 shadow-xl rounded-lg bg-white">
+        <div className="flex place-items-center justify-center p-3 w-100">
         <div className="flex items-center mx-10">
           <div className="bg-white border rounded-md shadow-md p-4 mb-12">
             <div className="flex flex-col items-center">
@@ -213,6 +222,10 @@ const Users = () => {
           </form>
         </div>
       </div>
+        </div>
+      </div>
+
+    
     </>
   )
 };
