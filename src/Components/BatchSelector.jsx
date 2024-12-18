@@ -5,13 +5,12 @@ import { useDispatch } from 'react-redux';
 import { fetchCurrentBatch } from '../reducers/GeneralReducers';
 
 const Selector = ({ loader }) => {
-  const [batches, setBatches] = useState(null);
+  const [batches, setBatches] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [selected, setSelected] = useState("");
   const [open, setOpen] = useState(false);
   
   const dispatch = useDispatch();
-  dispatch(fetchCurrentBatch(selected));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,6 +21,13 @@ const Selector = ({ loader }) => {
     fetchData();
   }, [loader]);
 
+  // Dispatch action to fetch the current batch only when `selected` changes
+  useEffect(() => {
+    if (selected) {
+      dispatch(fetchCurrentBatch(selected));
+    }
+  }, [selected, dispatch]);
+  
   return (
     <div className="m-1 py-1 w-full rounded-lg border-2 border-gray-600 text-black-700 sm:text-sm">
       <div
