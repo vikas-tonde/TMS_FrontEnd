@@ -54,7 +54,7 @@ function BulkEntryXlsx() {
         </Link>
 
         {/* Form Section */}
-        <div className="mt-4 mx-6 shadow-xl rounded-lg p-3 bg-white">
+        <div className="mt-4 mx-6 shadow-xl rounded-lg p-3 pt-5 bg-white">
           <div className="flex justify-center items-center w-full">
             <form className="w-auto max-w-2xl" onSubmit={handleSubmit}>
               <div className="space-y-6">
