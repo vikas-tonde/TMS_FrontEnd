@@ -73,35 +73,45 @@ const TraineeTable = () => {
 
   return (
     <>
-      <div className=" mx-auto max-w-full md:p-3 2xl:p-6 flex justify-center flex-col items-center">
+    <div className="flex-1 bg-gray-500 bg-opacity-40 pb-6 backdrop-blur-md min-h-screen">
+        {/* Dashboard Link */}
+        <Link 
+          to='/users' 
+          className="block py-3 px-3 font-bold text-3xl text-gray-700 Times text-center mx-auto"
+        >
+          Table of Trainee
+        </Link>
 
-        <h1 className="text-2xl font-semibold text-center py-2 text-[#0A1C3E] dark:text-white border-b border-gray-200 dark:border-gray-700">Table of Trainee</h1>
+        {/* StatisticsTabsMenu without 3D effect */}
+        <div className="mt-4 mx-6 shadow-xl rounded-lg p-3 bg-white">
 
-        <div className="m-10 py-1 w-1/2 col-span-full flex w items-center rounded-full justify-center border shadow-lg">
-          <label
-            htmlFor="batch"
-            className="block text-xl h-9 mt-2 font-medium text-gray-900 mr-2 justify-center"
-          >
-            Select batch
-          </label>
-          <div className="pl-10">
-            <select
-              id="batch"
-              name="batch"
-              autoComplete="off"
-              value={selectedBatch}
-              onChange={(e) => setSelectedBatch(e.target.value)}
-              className="block w-96 h-9 rounded-md border-0 py-1.5 text-gray-800 ring-1 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset  focus:text-gray-800 mr-2 sm:max-w-xs sm:text-sm sm:leading-6"
-            >
-              <option value="" selected disabled>Select the batch</option>
-              {batches.map(batch => (
-                <option key={batch._id} value={batch._id}>{batch.batchName}</option>
-              ))}
-            </select>
-          </div>
-        </div>
+        <div className=" mx-auto max-w-full md:p-3 2xl:p-6 flex justify-center flex-col items-center">
+        <div className="m-6 py-2 w-full md:w-1/2 flex items-center justify-between md:justify-center rounded-full border shadow-lg">
+  <label
+    htmlFor="batch"
+    className="block text-xl h-9 mt-2 font-medium text-gray-900 mr-2"
+  >
+    Select batch
+  </label>
+  <div className="pl-0 md:pl-10">
+    <select
+      id="batch"
+      name="batch"
+      autoComplete="off"
+      value={selectedBatch}
+      onChange={(e) => setSelectedBatch(e.target.value)}
+      className="block w-full md:w-96 h-9 rounded-md border-0 py-1.5 text-gray-800 ring-1 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset focus:text-gray-800 sm:max-w-xs sm:text-sm sm:leading-6"
+    >
+      <option value="" disabled>Select the batch</option>
+      {batches.map(batch => (
+        <option key={batch._id} value={batch._id}>{batch.batchName}</option>
+      ))}
+    </select>
+  </div>
+</div>
 
-        <div className="flex w-full justify-evenly" xData="{ search: '' }">
+
+        <div className="flex w-full" xData="{ search: '' }">
           <div className=" mb-2 w-auto flex rounded-md">
             <svg className="w-5 h-8 pl-1 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
@@ -114,8 +124,6 @@ const TraineeTable = () => {
               xModel="search" />
           </div>
         </div>
-
-
 
         <table className="shadow-sm p-6 h-max w-full text-left mb-5 border-spacing-0" id="table-to-xls">
           <thead className="bg-blue text-white p-3 h-16 ">
@@ -182,6 +190,10 @@ const TraineeTable = () => {
         </table>
 
       </div>
+        </div>
+      </div>
+
+     
     </>
   );
 };
