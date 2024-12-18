@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Selector from "../Components/BatchSelector";
 import { getBatches } from "./../services/loaderFunctions";
 
-const Statistics = () => {
+const Statistics = ({location}) => {
   const [entries, setEntries] = useState([
     {
       name: "Vikas Tonde",

@@ -61,30 +61,13 @@ const StatisticsTabsMenu = () => {
       </div>
       {/* Content rendering based on the active tab */}
       <div className="mt-6 mx-6">
-        {activeLocation === "Pune" && (
+        {activeLocation && (
           <div>
-            <Statistics location="Pune" />
-            <Table location="Pune" />
+            <Statistics location={activeLocation} />
+            <Table location={activeLocation} />
           </div>
         )}
-        {activeLocation === "Chennai" && (
-          <div>
-            <Statistics location="Chennai" />
-            <Table location="Chennai" />
-          </div>
-        )}
-        {activeLocation === "Bangalore" && (
-          <div>
-            <Statistics location="Bangalore" />
-            <Table location="Bangalore" />
-          </div>
-        )}
-        {activeLocation === "Germany" && (
-          <div>
-            <Statistics location="Germany" />
-            <Table location="Germany" />
-          </div>
-        )}
+        
       </div>
     </>
   );
