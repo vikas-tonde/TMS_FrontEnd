@@ -1,65 +1,55 @@
 import React from "react";
-import { Tabs, Tab } from '../Components/Tabs';
 import Statistics from "./Statistics";
 import Table from "../Components/Table";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { setActiveLocation } from '../reducers/GeneralReducers';
 
 const StatisticsTabsMenu = () => {
-  const [activeLocation, setActiveLocation] = useState("Pune");
+  const dispatch = useDispatch();
+  const activeLocation = useSelector(state => state.location);
 
-  // Function to handle tab click
   const handleTabClick = (location) => {
-    setActiveLocation(location);
+    dispatch(setActiveLocation(location));
   };
+
   return (
     <>
       <div className="flex-1 px-8 py-2 h-auto">
+        {/* Mobile Dropdown */}
         <div className="sm:hidden">
           <label htmlFor="Tab" className="sr-only">Tab</label>
-          <select id="Tab" className="w-full rounded-md border-2 border-gray-250 text-lg" value={activeLocation} onChange={(e) => handleTabClick(e.target.value)}>
-            <option select>Pune</option>
-            <option>Chennai</option>
-            <option>Bangalore</option>
-            <option>Germany</option>
+          <select
+            id="Tab"
+            className="w-full rounded-md border-2 border-gray-250 text-lg"
+            value={activeLocation}
+            onChange={(e) => handleTabClick(e.target.value)}
+          >
+            <option value="Pune">Pune</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Bangalore">Bangalore</option>
+            <option value="Germany">Germany</option>
           </select>
         </div>
 
+        {/* Desktop Tab Buttons */}
         <div className="hidden sm:block">
           <div className="border-b border-gray-200">
             <nav className="-mb-px flex gap-6 justify-center">
-              <button
-                onClick={() => handleTabClick("Pune")}
-                className={`shrink-0 font-medium p-4 text-lg border ${activeLocation !== "Pune" ? "border-transparent text-gray-500 hover:text-gray-700" : "rounded-t-lg border-gray-300 border-b-white text-sky-600"}`}
-              >
-                Pune
-              </button>
-
-              <button
-                onClick={() => handleTabClick("Chennai")}
-                className={`shrink-0 font-medium p-4 text-lg border ${activeLocation !== "Chennai" ? "border-transparent text-gray-500 hover:text-gray-700" : "rounded-t-lg border-gray-300 border-b-white text-sky-600"}`}
-              >
-                Chennai
-              </button>
-
-              <button
-                onClick={() => handleTabClick("Bangalore")}
-                className={`shrink-0 font-medium p-4 text-lg border ${activeLocation !== "Bangalore" ? "border-transparent text-gray-500 hover:text-gray-700" : "rounded-t-lg border-gray-300 border-b-white text-sky-600"}`}
-              >
-                Bangalore
-              </button>
-
-              <button
-                onClick={() => handleTabClick("Germany")}
-                className={`shrink-0 font-medium p-4 text-lg border ${activeLocation !== "Germany" ? "border-transparent text-gray-500 hover:text-gray-700" : "rounded-t-lg border-gray-300 border-b-white text-sky-600"}`}
-              >
-                Germany
-              </button>
+              {["Pune", "Chennai", "Bangalore", "Germany"].map(location => (
+                <button
+                  key={location}
+                  onClick={() => handleTabClick(location)}
+                  className={`shrink-0 font-medium p-4 text-lg border ${activeLocation !== location ? "border-transparent text-gray-500 hover:text-gray-700" : "rounded-t-lg border-gray-300 border-b-white text-sky-600"}`}
+                >
+                  {location}
+                </button>
+              ))}
             </nav>
           </div>
         </div>
       </div>
-      {/* Content rendering based on the active tab */}
+
+      {/* Content Rendering based on Active Location */}
       <div className="mt-6 mx-6">
         {activeLocation && (
           <div>
@@ -67,7 +57,6 @@ const StatisticsTabsMenu = () => {
             <Table location={activeLocation} />
           </div>
         )}
-        
       </div>
     </>
   );

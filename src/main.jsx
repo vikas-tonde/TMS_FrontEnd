@@ -26,6 +26,8 @@ import Users from './Pages/Users';
 import './index.css';
 import { AuthProvider, RequireAuth } from './services/auth';
 import { getBatch, getBatches, getExam, getModules } from './services/loaderFunctions';
+import { Provider } from 'react-redux';
+import { MyStore } from './store/Store.js'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -74,7 +76,7 @@ const router = createBrowserRouter(
             </Suspense>
           } loader={getBatches} />
           <Route path="/users/addbulk" element={<BulkEntryXlsx />} />
-          
+
           <Route path="/users" element={
             <Suspense fallback={<div>Loading batch details...</div>}>
               <TraineeTable />
@@ -116,6 +118,8 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={MyStore}>
+      <RouterProvider router={router} />
+    </Provider>
   </StrictMode>,
 )

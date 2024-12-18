@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { BiChevronDown } from "react-icons/bi";
 import { AiOutlineSearch } from "react-icons/ai";
+import { useDispatch } from 'react-redux';
+import { fetchCurrentBatch } from '../reducers/GeneralReducers';
 
 const Selector = ({ loader }) => {
   const [batches, setBatches] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const [selected, setSelected] = useState("");
   const [open, setOpen] = useState(false);
+  
+  const dispatch = useDispatch();
+  dispatch(fetchCurrentBatch(selected));
 
   useEffect(() => {
     const fetchData = async () => {
