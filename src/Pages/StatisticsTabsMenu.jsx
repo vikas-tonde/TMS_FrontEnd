@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setActiveLocation } from '../reducers/GeneralReducers';
 
 const StatisticsTabsMenu = () => {
-  const dispatch = useDispatch();
   const activeLocation = useSelector(state => state.location);
+  const dispatch = useDispatch();
 
   const handleTabClick = (location) => {
     dispatch(setActiveLocation(location));
@@ -53,8 +53,8 @@ const StatisticsTabsMenu = () => {
       <div className="mt-6 mx-6">
         {activeLocation && (
           <div>
-            <Statistics location={activeLocation} />
-            <Table location={activeLocation} />
+            <Statistics/>
+            <Table/>
           </div>
         )}
       </div>

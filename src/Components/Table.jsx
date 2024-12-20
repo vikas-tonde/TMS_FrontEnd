@@ -1,30 +1,25 @@
-import { useState, useEffect } from "react";
 import { createColumnHelper, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import api from "../services/api";
 
 const Table = () => {
   const [trainees, setTrainees] = useState([]);
-  const [srno, setSrno] = useState(1);
-
-  const incrementSrno = () => {
-    setSrno(srno + 1);
-  };
-
+  const activeLocation = useSelector(state => state.location);
   useEffect(() => {
-    const fetchTrainees = async () => {
+    (async () => {
       try {
-        const response = await api.get(`/api/admin/trainees/Pune`);
-        console.log(response.data.data);
+        const response = await api.get(`/api/admin/trainees/${activeLocation}`);
         setTrainees(response.data.data);
         // setLoading(false);
       } catch (error) {
         console.error("Error fetching trainees:", error);
+        setTrainees([]);
         // setLoading(false);
       }
-    };
-    fetchTrainees();
-  }, []);
+    })()
+  }, [activeLocation]);
 
   const columnHelper = createColumnHelper();
 
