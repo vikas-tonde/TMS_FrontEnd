@@ -7,83 +7,91 @@ import { MdAddCircle, MdOutlineBatchPrediction } from "react-icons/md";
 import { PiExamFill } from "react-icons/pi";
 import { RiDashboardFill, RiUserSettingsFill } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../services/auth";
 import SidebarMenu from "./SidebarMenu";
 
-const routes = [
-  {
-    path: "/dashboard",
-    name: "Dashboard",
-    icon: <RiDashboardFill />,
-  },
-  {
-    path: "/profile",
-    name: "Personal Information",
-    icon: <RiUserSettingsFill />,
-
-  },
-  {
-    path: "/exams",
-    name: "Exams",
-    icon: <PiExamFill />,
-    subRoutes: [
-      {
-        path: "/exams",
-        name: "All Exams",
-        icon: <PiExamFill />,
-      },
-      {
-        path: "/exams/single",
-        name: "Single Entry",
-        icon: <MdAddCircle />,
-      },
-      {
-        path: "/exams/addbulk",
-        name: "Bulk Entry",
-        icon: <BiSolidSelectMultiple />,
-      },
-    ],
-  },
-  {
-    path: "/users",
-    name: "Users Details",
-    icon: <FaUser />,
-    subRoutes: [
-      {
-        path: "/user/add",
-        name: "Single Entry",
-        icon: <MdAddCircle />,
-      },
-      {
-        path: "/users/add",
-        name: "Bulk Entry",
-        icon: <BiSolidSelectMultiple />,
-      },
-      {
-        path: "/users",
-        name: "All Users",
-        icon: <FaUsers />,
-      },
-    ],
-  },
-  {
-    path: "/graph",
-    name: "Graphs",
-    icon: < AiFillPieChart />,
-  },
-  {
-    path: "/batch",
-    name: "Batch",
-    icon: <MdOutlineBatchPrediction />,
-  },
-  {
-    path: "/logout",
-    name: "Log out",
-    icon: <FaSignOutAlt />,
-  },
-];
 
 
 const SideBar = ({ children }) => {
+  let auth = useAuth();
+  let handleSignout = (e)=>{
+    e.preventDefault();
+    auth.signout();
+  }
+  const routes = [
+    {
+      path: "/dashboard",
+      name: "Dashboard",
+      icon: <RiDashboardFill />,
+    },
+    {
+      path: "/profile",
+      name: "Personal Information",
+      icon: <RiUserSettingsFill />,
+  
+    },
+    {
+      path: "/exams",
+      name: "Exams",
+      icon: <PiExamFill />,
+      subRoutes: [
+        {
+          path: "/exams",
+          name: "All Exams",
+          icon: <PiExamFill />,
+        },
+        {
+          path: "/exams/single",
+          name: "Single Entry",
+          icon: <MdAddCircle />,
+        },
+        {
+          path: "/exams/addbulk",
+          name: "Bulk Entry",
+          icon: <BiSolidSelectMultiple />,
+        },
+      ],
+    },
+    {
+      path: "/users",
+      name: "Users Details",
+      icon: <FaUser />,
+      subRoutes: [
+        {
+          path: "/user/add",
+          name: "Single Entry",
+          icon: <MdAddCircle />,
+        },
+        {
+          path: "/users/add",
+          name: "Bulk Entry",
+          icon: <BiSolidSelectMultiple />,
+        },
+        {
+          path: "/users",
+          name: "All Users",
+          icon: <FaUsers />,
+        },
+      ],
+    },
+    {
+      path: "/graph",
+      name: "Graphs",
+      icon: < AiFillPieChart />,
+    },
+    {
+      path: "/batch",
+      name: "Batch",
+      icon: <MdOutlineBatchPrediction />,
+    },
+    {
+      path: "/logout",
+      name: "Log out",
+      icon: <FaSignOutAlt />,
+      onClick: handleSignout
+    },
+  ];
+  
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
@@ -165,6 +173,7 @@ const SideBar = ({ children }) => {
                     key={index}
                     className="link "
                     activeclassname="active"
+                    onClick={route?.onClick ? route.onClick : undefined}
                   >
                     <div className="flex items-center p-4 hover:bg-gray-200 h-10">
                       <div className="mr-4">{route.icon}</div>

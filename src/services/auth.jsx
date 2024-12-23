@@ -1,67 +1,92 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import api from "./api";
+import axios from "axios";
 let AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-    let [user, setUser] = useState();
-    let navigate = useNavigate();
-    let location = useLocation();
-    let signin = async (values, actions) => {
-        let response = await api.post(`/api/users/login`, values);
-        let { data } = response.data;
-        actions.resetForm();
-        if (data?.user === null || data?.user === undefined) {
-            setUser(null);
-            navigate("/login", { replace: true, state: "Login Failed check username or password" });
-        }
-        else {
-            setUser(data.user);
-            console.log("user:", user);
-            if (data?.user?.role === "Admin") {
-                let to = location.state?.from?.pathname || "/dashboard";
-                navigate(to, { replace: true, state: "Login success" });
-            }
-            if (data?.user?.role === "Trainee") {
-                let to = location.state?.from?.pathname || "/trainee";
-                navigate(to, { replace: true, state: "Login success" });
-            }
-        }
-    };
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    let signout = () => {
+  const signin = async (values, actions) => {
+    try {
+      const response = await api.post(`/api/users/login`, values);
+      const { data } = response.data;
+
+      actions.resetForm();
+
+      if (!data?.user) {
         setUser(null);
-        navigate("/");
-    };
-    let value = { user, signin, signout, setUser };
-    return <AuthContext.Provider value={value}> {children} </AuthContext.Provider>;
+        navigate("/login", {
+          replace: true,
+          state: "Login failed. Check username or password.",
+        });
+        return;
+      }
+
+      setUser(data.user);
+
+      const targetPath =
+        data.user.role === "Admin"
+          ? location.state?.from?.pathname || "/dashboard"
+          : "/trainee";
+
+      navigate(targetPath, { replace: true, state: "Login successful!" });
+    } catch (error) {
+      console.error("Login Error:", error);
+      navigate("/login", { state: "An error occurred. Try again.", replace: true });
+    }
+  };
+
+  const signout = async () => {
+    try {
+      await api.get(`/api/users/sign-out`);
+      setUser(null);
+      navigate("/", { replace: true });
+    } catch (error) {
+      console.error("Signout Error:", error);
+      setUser(null);
+      navigate("/", { replace: true });
+    }
+  };
+
+  const value = { user, signin, signout, setUser };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {
-    return useContext(AuthContext);
+  return useContext(AuthContext);
 }
 
 export function RequireAuth({ children }) {
-    let auth = useAuth();
-    let nevigate = useNavigate();
-    if (!auth?.user) {
-        // Redirect them to the /login page, but save the current location they were
-        // trying to go to when they were redirected. This allows us to send them
-        // along to that page after they login, which is a nicer user experience
-        // than dropping them off on the home page.
-        (async () => {
-            try {
-                let response = await api.get("/api/users/");
-                let { data } = response.data;
-                console.log("Logged in after refresh.");
-                auth.setUser(data.user);
-            } catch (error) {
-                nevigate("/login",{state:"Please login again..", replace:true})
-            }
-        })();
+    const auth = useAuth();
+    const navigate = useNavigate();
+  
+    useEffect(() => {
+      if (!auth.user) {
+        const verifyUser = async () => {
+          try {
+            const response = await api.get("/api/users/");
+            const { data } = response.data;
+            auth.setUser(data.user);
+          } catch (error) {
+            navigate("/login", {
+              state: "Please login again.",
+              replace: true,
+            });
+          }
+        };
+  
+        verifyUser();
+      }
+    }, [auth, navigate]);
+  
+    if (!auth.user) {
+      return null; // Render nothing while verifying user
     }
-    else{
-        return children;
-    }
-}
+  
+    return children;
+  }
 
