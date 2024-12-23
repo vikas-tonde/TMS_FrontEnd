@@ -1,45 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import Selector from "../Components/BatchSelector";
-import { getBatches } from "./../services/loaderFunctions";
 
 const Statistics = () => {
   const activeLocation = useSelector(state => state.location);
-  const [entries, setEntries] = useState([
-    {
-      name: "Vikas Tonde",
-      email: "vikas.tonde@intelizign.com",
-      score: 92,
-      image: "https://randomuser.me/api/portraits/men/1.jpg",
-    },
-    {
-      name: "Shivkanya Doiphode",
-      email: "shivkanya.doiphode@intelizign.com",
-      score: 90,
-      image: "https://randomuser.me/api/portraits/women/2.jpg",
-    },
-    {
-      name: "Rishi Rathod",
-      email: "rishi.rathod@intelizign.com",
-      score: 88,
-      image: "https://randomuser.me/api/portraits/men/3.jpg",
-    },
-    {
-      name: "Rutika Vale",
-      email: "rutika.vale@intelizign.com",
-      score: 87,
-      image: "https://randomuser.me/api/portraits/women/4.jpg",
-    },
-    {
-      name: "Trupti Panhale",
-      email: "trupti.panhale@intelizign.com",
-      score: 85,
-      image: "https://randomuser.me/api/portraits/women/5.jpg",
-    },
-  ]);
+  const [entries, setEntries] = useState([]);
+  const traineesSelected = useSelector(state => state.trainees);
+  // let getToppers = () => {
+  //   let currentRank = 1;
+  //   let previousMarks = traineesSelected[0]?.Exams[0].averageMarks;
+  //   let topStudents = [traineesSelected[0]];
+  //   let tieChecker = 0;
+
+  //   for (let i = 1; i < traineesSelected.length; i++) {
+  //     if (traineesSelected[i]?.Exams[0].averageMarks !== previousMarks) {
+  //       currentRank = currentRank + 1;
+  //     }
+      
+  //     topStudents.push(traineesSelected[i]);
+  //     if (currentRank >= 5 && traineesSelected[i]?.Exams[0].averageMarks !== previousMarks) {
+  //       break;
+  //     }
+  //     previousMarks = traineesSelected[i].Exams[0].averageMarks;
+  //   }
+  //   console.log(topStudents);
+  //   setEntries(topStudents);
+  // }
+
+  useEffect(() => {
+    setEntries(traineesSelected.slice(0,5));
+  }, [traineesSelected])
 
   const settings = {
     dots: true,
@@ -56,7 +49,7 @@ const Statistics = () => {
 
   return (
     <>
-      <Selector/>
+      <Selector />
       <div className="flex items-center justify-center mt-8 mb-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* Toppers Slider Section */}
@@ -71,14 +64,14 @@ const Statistics = () => {
                   <div className="w-full p-1">
                     <div className="flex items-center gap-4 bg-white rounded-lg shadow-md p-4">
                       <img
-                        src={entry.image}
-                        alt={entry.name}
+                        src={entry?.image}
+                        alt={`${entry?.firstName} ${entry?.lastName}`}
                         className="w-20 h-20 rounded-full object-cover"
                       />
                       <div>
-                        <h3 className="text-lg font-medium text-gray-900">{entry.name}</h3>
-                        <p className="text-sm text-gray-600">Score: {entry.score}</p>
-                        <p className="text-sm text-gray-600">Email: {entry.email}</p>
+                        <h3 className="text-lg font-medium text-gray-900">{`${entry?.firstName} ${entry?.lastName}`}</h3>
+                        <p className="text-sm text-gray-600">Score: {entry?.Exams[0]?.averageMarks}</p>
+                        <p className="text-sm text-gray-600">Email: {entry?.email}</p>
                       </div>
                     </div>
                   </div>

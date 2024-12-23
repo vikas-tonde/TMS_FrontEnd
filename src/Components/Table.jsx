@@ -7,19 +7,10 @@ import api from "../services/api";
 const Table = () => {
   const [trainees, setTrainees] = useState([]);
   const activeLocation = useSelector(state => state.location);
+  const traineesSelected = useSelector(state => state.trainees);
   useEffect(() => {
-    (async () => {
-      try {
-        const response = await api.get(`/api/admin/trainees/${activeLocation}`);
-        setTrainees(response.data.data);
-        // setLoading(false);
-      } catch (error) {
-        console.error("Error fetching trainees:", error);
-        setTrainees([]);
-        // setLoading(false);
-      }
-    })();
-  }, [activeLocation]);
+    setTrainees(traineesSelected);
+  }, [activeLocation, traineesSelected]);
 
   const columnHelper = createColumnHelper();
 
