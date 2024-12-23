@@ -1,26 +1,33 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     location: "Pune",
-    batch: null
+    batch: '',
+    trainees: []
 };
+
+function fetchTraineesState(state, action) {
+    state.trainees = action.payload;
+}
 
 function activeLocation(state, action) {
     state.location = action.payload;
 }
 
-function CurrentBatch(state, action) {
+function currentBatch(state, action) {
     state.batch = action.payload;
 };
 
+
 export const allSlices = createSlice({
-    name: 'currentBatch',
+    name: 'dashboard',
     initialState,
     reducers: {
         setActiveLocation: activeLocation,
-        fetchCurrentBatch: CurrentBatch
+        fetchCurrentBatch: currentBatch,
+        fetchTrainees: fetchTraineesState
     }
 })
 
-export const {setActiveLocation, fetchCurrentBatch} = allSlices.actions;
+export const { setActiveLocation, fetchCurrentBatch, fetchTrainees } = allSlices.actions;
 export default allSlices.reducer;
