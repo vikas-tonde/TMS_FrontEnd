@@ -12,7 +12,6 @@ export const getModules = async () => {
 
 export const getBatches = async () => {
     try {
-        console.log("Calling Batches api");
         let response = await api.get("/api/admin/batches");
         return response.data.data;
     } catch (error) {
@@ -34,7 +33,6 @@ export const getBatch = async ({params}) => {
     const { batchId } = params;
     console.log(batchId);
     try {
-        console.log("Calling Batch api");
         let response = await api.get(`/api/admin/batch/${batchId}`);
         return response.data.data;
     } catch (error) {
@@ -42,4 +40,12 @@ export const getBatch = async ({params}) => {
     }
 }
 
-
+export const getTraineeDetails = async ({params})=>{
+    const {empId} = params;
+    try {
+        let response = await api.get(`/api/admin/trainee/${empId}`);
+        return response.data.data;
+    } catch (error) {
+        return {};
+    }
+}

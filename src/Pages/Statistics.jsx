@@ -56,7 +56,7 @@ const Statistics = () => {
 
   return (
     <>
-      <Selector loader={getBatches} />
+      <Selector/>
       <div className="flex items-center justify-center mt-8 mb-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* Toppers Slider Section */}

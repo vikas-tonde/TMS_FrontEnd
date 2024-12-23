@@ -18,7 +18,7 @@ const Table = () => {
         setTrainees([]);
         // setLoading(false);
       }
-    })()
+    })();
   }, [activeLocation]);
 
   const columnHelper = createColumnHelper();

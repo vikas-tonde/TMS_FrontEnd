@@ -1,5 +1,6 @@
 import React, { StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import BatchTable from "./Components/BatchTable";
 import AdminLayout from './Components/Layouts/AdminLayout';
@@ -25,9 +26,8 @@ import TraineeInfo from './Pages/TraineeInfo';
 import Users from './Pages/Users';
 import './index.css';
 import { AuthProvider, RequireAuth } from './services/auth';
-import { getBatch, getBatches, getExam, getModules } from './services/loaderFunctions';
-import { Provider } from 'react-redux';
-import { MyStore } from './store/Store.js'
+import { getBatch, getBatches, getExam, getModules, getTraineeDetails } from './services/loaderFunctions';
+import { MyStore } from './store/Store.js';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -68,14 +68,18 @@ const router = createBrowserRouter(
             </Suspense>
           } loader={getExam} />
 
-          <Route path="/dashboard/:empId" element={<TraineeInfo />} />
+          <Route path="/dashboard/:empId" element={
+            <Suspense fallback={<div>Loading batch details...</div>}>
+              <TraineeInfo />
+            </Suspense>
+          } loader={getTraineeDetails} />
 
-          <Route path="/users/singleentry" element={
+          <Route path="/user/add" element={
             <Suspense fallback={<div>Loading batch details...</div>}>
               <SingleEntryUser />
             </Suspense>
           } loader={getBatches} />
-          <Route path="/users/addbulk" element={<BulkEntryXlsx />} />
+          <Route path="/users/add" element={<BulkEntryXlsx />} />
 
           <Route path="/users" element={
             <Suspense fallback={<div>Loading batch details...</div>}>

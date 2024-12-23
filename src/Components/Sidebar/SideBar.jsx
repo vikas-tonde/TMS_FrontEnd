@@ -49,12 +49,12 @@ const routes = [
     icon: <FaUser />,
     subRoutes: [
       {
-        path: "/users/singleentry",
+        path: "/user/add",
         name: "Single Entry",
         icon: <MdAddCircle />,
       },
       {
-        path: "/users/addbulk",
+        path: "/users/add",
         name: "Bulk Entry",
         icon: <BiSolidSelectMultiple />,
       },
