@@ -67,7 +67,7 @@ const SingleEntryUser = () => {
             <form autoComplete="off" className="flex justify-center w-full" onSubmit={handleSubmit}>
               <div className="w-full max-w-2xl space-y-6">
                 {/* First Name */}
-                <div className="flex flex-col sm:flex-row items-center justify-between">
+                <div className="flex flex-col sm:flex-row items-start justify-between">
                   <label htmlFor="firstName" className="text-gray-700 text-xl font-bold mb-2 sm:mr-4">Enter First Name</label>
                   <div className="w-full sm:w-96">
                     <input
@@ -84,7 +84,7 @@ const SingleEntryUser = () => {
                 </div>
 
                 {/* Last Name */}
-                <div className="flex flex-col sm:flex-row items-center justify-between">
+                <div className="flex flex-col sm:flex-row items-start justify-between">
                   <label htmlFor="lastName" className="text-gray-700 text-xl font-bold mb-2 sm:mr-4">Enter Last Name</label>
                   <div className="w-full sm:w-96">
                     <input
@@ -101,7 +101,7 @@ const SingleEntryUser = () => {
                 </div>
 
                 {/* Email */}
-                <div className="flex flex-col sm:flex-row items-center justify-between">
+                <div className="flex flex-col sm:flex-row items-start justify-between">
                   <label htmlFor="email" className="text-gray-700 text-xl font-bold mb-2 sm:mr-4">Enter Email ID</label>
                   <div className="w-full sm:w-96">
                     <input
@@ -119,7 +119,7 @@ const SingleEntryUser = () => {
                 </div>
 
                 {/* Employee ID */}
-                <div className="flex flex-col sm:flex-row items-center justify-between">
+                <div className="flex flex-col sm:flex-row items-start justify-between">
                   <label htmlFor="employeeId" className="text-gray-700 text-xl font-bold mb-2 sm:mr-4">Enter Employee ID</label>
                   <div className="w-full sm:w-96">
                     <input
@@ -136,7 +136,7 @@ const SingleEntryUser = () => {
                 </div>
 
                 {/* Role */}
-                <div className="flex flex-col sm:flex-row items-center justify-between">
+                <div className="flex flex-col sm:flex-row items-start justify-between">
                   <label htmlFor="role" className="text-gray-700 text-xl font-bold mb-2 sm:mr-4">Enter Role</label>
                   <div className="w-full sm:w-96">
                     <input
@@ -153,7 +153,7 @@ const SingleEntryUser = () => {
                 </div>
 
                 {/* Location */}
-                <div className="flex flex-col sm:flex-row items-center justify-between">
+                <div className="flex flex-col sm:flex-row items-start justify-between">
                   <label htmlFor="location" className="text-gray-700 text-xl font-bold mb-2 sm:mr-4">Enter Location</label>
                   <div className="w-full sm:w-96">
                     <input
@@ -170,7 +170,7 @@ const SingleEntryUser = () => {
                 </div>
 
                 {/* Batch */}
-                <div className="flex flex-col sm:flex-row items-center justify-between">
+                <div className="flex flex-col sm:flex-row items-start justify-between">
                   <label htmlFor="batch" className="text-gray-700 text-xl font-bold mb-2 sm:mr-4">Select Batch</label>
                   <div className="w-full sm:w-96">
                     <select
@@ -192,7 +192,7 @@ const SingleEntryUser = () => {
                 </div>
 
                 {/* Password */}
-                <div className="flex flex-col sm:flex-row items-center justify-between">
+                <div className="flex flex-col sm:flex-row items-start justify-between">
                   <label htmlFor="password" className="text-gray-700 text-xl font-bold mb-2 sm:mr-4">Enter Password</label>
                   <div className="w-full sm:w-96">
                     <input
