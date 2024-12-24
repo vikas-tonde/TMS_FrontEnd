@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import Selector from "../Components/BatchSelector";
+import avatar from '../assets/avatar.svg';
 
 const Statistics = () => {
   const activeLocation = useSelector(state => state.location);
@@ -32,7 +33,8 @@ const Statistics = () => {
 
   useEffect(() => {
     setEntries(traineesSelected.slice(0,5));
-  }, [traineesSelected])
+  }, [traineesSelected]);
+
 
   const settings = {
     dots: true,
@@ -64,7 +66,8 @@ const Statistics = () => {
                   <div className="w-full p-1">
                     <div className="flex items-center gap-4 bg-white rounded-lg shadow-md p-4">
                       <img
-                        src={entry?.image}
+                        src={entry.image ? entry.image: avatar}
+                        
                         alt={`${entry?.firstName} ${entry?.lastName}`}
                         className="w-20 h-20 rounded-full object-cover"
                       />
