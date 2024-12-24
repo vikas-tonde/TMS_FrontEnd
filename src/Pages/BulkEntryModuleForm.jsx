@@ -1,5 +1,6 @@
 import { useLoaderData } from "react-router";
 import api from "../services/api";
+import { Link } from "react-router-dom";
 import SelectorForTestDetails from "./SelectorForTestDetails";
 import { useEffect, useState } from "react";
 import { object, string, number, mixed } from 'yup';
@@ -8,25 +9,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const examFormSchema = object().shape({
-    assessmentName: string().required("Employee Id is required"),
-    examDate: string().required("examDate is required"),
-    assessmentType: string().required("assessmentType is required"),
-    totalMarks: number().positive().required("Total marks is required"),
-    examFile: mixed().required('required')
-    // .test('fileFormat', 'Only excel files are allowed', value => {
-    //     if (value) {
-    //         console.log("Type:",value.size);
-    //         const supportedFormats = ['xlsx', 'xls'];
-    //         return supportedFormats.includes(value.type);
-    //     }
-    //     return true;
-    // })
-    // .test('fileSize', 'File size must be less than 3MB', value => {
-    //     if (value) {
-    //         return value.size <= 3145728;
-    //     }
-    //     return true;
-    // })
+    assessmentName: string().required("Assessment Name is required"),
+    examDate: string().required("Exam Date is required"),
+    assessmentType: string().required("Assessment Type is required"),
+    totalMarks: number().positive().required("Total Marks are required"),
+    examFile: mixed().required('Excel file is required')
 });
 
 function BulkEntryModuleForm() {
@@ -35,11 +22,11 @@ function BulkEntryModuleForm() {
     const [selectedModule, setselectedModule] = useState("");
     const [otherModule, setOtherModule] = useState("");
     const [otherModuleBlur, setOtherModuleBlur] = useState("");
+
     useEffect(() => {
-        if (selectedModule == 'other') {
+        if (selectedModule === 'other') {
             setselectedModule(otherModule);
         }
-        console.log("Selected Module: ", selectedModule);
     }, [otherModule]);
 
     const submitHandler = async (values, actions) => {
@@ -51,21 +38,19 @@ function BulkEntryModuleForm() {
         formdata.append('totalMarks', values.totalMarks);
         formdata.append('assessmentName', values.assessmentName);
         formdata.append('assessmentType', values.assessmentType);
+
         try {
             let response = await api.post("/api/admin/bulk/test", formdata, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            console.log(response.data);
-            toast.success('Assessments added...!');
-            
+            toast.success('Assessments added successfully!');
         } catch (error) {
-            toast.error('Something went wrong while adding assessment please check all fields carefully...!');
-            console.log(error.response);
+            toast.error('Something went wrong while adding assessment. Please check all fields.');
         }
         actions.resetForm();
-    }
+    };
 
     const { handleChange, handleBlur, values, handleSubmit, errors, touched } = useFormik({
         initialValues: {
@@ -78,17 +63,24 @@ function BulkEntryModuleForm() {
         validationSchema: examFormSchema,
         onSubmit: submitHandler
     });
+
     return (
         <>
-            <div className="flex items-center justify-items-center mb-5">
-                <h1 className='text-4xl font-semibold m-3 w-full text-center'>Form for test details sheet Upload</h1>
-            </div>
-            <form className="flex justify-center" onSubmit={handleSubmit} >
-                <div className="space-y-8 ml-36">
-                    <div className=" border-gray-900/10 ">
-                        <div className="m-5 col-span-full flex items-center ">
-                            <label className="flex items-center justify-center text-gray-700 text-xl font-bold mt-1 mb-2 mr-28" >Assessment Name</label>
-                            <div className=" pl-2">
+            <div className="flex-1 bg-gray-500 bg-opacity-40 pb-6 backdrop-blur-md min-h-screen">
+                <Link
+                    to="#"
+                    className="block py-3 px-3 font-bold text-3xl text-gray-700 Times text-center mx-auto"
+                >
+                    Form for Test Details Sheet Upload
+                </Link>
+
+                <div className="mt-4 mx-6 shadow-xl rounded-lg p-3 pt-5 bg-white">
+                    <form className="w-auto max-w-2xl mx-auto" onSubmit={handleSubmit}>
+                        <div className="space-y-6">
+
+                            {/* Assessment Name */}
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                <label className="text-gray-700 text-xl font-bold mb-2 sm:mr-4">Assessment Name</label>
                                 <input
                                     type="text"
                                     id="assessmentName"
@@ -97,67 +89,72 @@ function BulkEntryModuleForm() {
                                     value={values.assessmentName}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    className="shadow appearance-none block bg-white rounded-md w-96 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
+                                    className="shadow appearance-none block bg-white rounded-md w-full sm:w-96 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
                                 />
                             </div>
-                        </div>
-                        <div className="m-5 col-span-full flex items-center ">
-                            <label htmlFor="countries" className="flex items-center justify-center text-gray-700 text-xl font-bold mt-1 mb-2 mr-21">Select Assessment Type</label>
-                            <div className=" pl-2">
-                                <select className="shadow appearance-none block bg-white rounded-md w-96 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
+
+                            {/* Assessment Type */}
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                <label htmlFor="assessmentType" className="text-gray-700 text-xl font-bold mb-2 sm:mr-4">Select Assessment Type</label>
+                                <select
+                                    className="shadow appearance-none block bg-white rounded-md w-full sm:w-96 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
                                     id="assessmentType"
                                     name="assessmentType"
                                     value={values.assessmentType}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 >
-                                    <option value="" disabled selected>Choose a Assessment Type</option>
+                                    <option value="" disabled selected>Choose an Assessment Type</option>
                                     <option value="Quiz">Quiz</option>
                                     <option value="Assignment">Assignment</option>
                                     <option value="Presentation">Presentation</option>
                                 </select>
                             </div>
-                        </div>
-                        <div className="m-5 col-span-full flex items-center ">
-                            <label className="flex items-center justify-center text-gray-700 text-xl font-bold mt-1 mb-2 mr-20" >Module Name</label>
-                            <div className="pl-2">
-                                <SelectorForTestDetails modulesProps={modules} setSelected={setselectedModule} selected={selectedModule} />
-                            </div>
-                        </div>
-                        {selectedModule === 'other' && <div className="m-5 col-span-full flex items-center ">
-                            <label className="flex items-center justify-center text-gray-700 text-xl font-bold mt-1 mb-2 mr-7" >Other Module Name</label>
-                            <div className=" ">
-                                <input
-                                    type="text"
-                                    id="otherModule"
-                                    name="otherModule"
-                                    value={otherModuleBlur}
-                                    onChange={(e) => setOtherModuleBlur(e.target.value)}
-                                    onBlur={(e) => setOtherModule(e.target.value)}
-                                    placeholder="Enter Module Name"
-                                    className="shadow appearance-none block bg-white rounded-md w-96 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
+
+                            {/* Module Name */}
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                <label className="text-gray-700 text-xl font-bold mb-2 sm:mr-4">Module Name</label>
+                                <SelectorForTestDetails
+                                    modulesProps={modules}
+                                    setSelected={setselectedModule}
+                                    selected={selectedModule}
                                 />
                             </div>
-                        </div>}
-                        <div className="m-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                            <div className="sm:col-span-4 flex items-center ">
-                                <label className="flex items-center justify-center text-gray-700 text-xl font-bold mt-1 mb-2 mr-44" >Date</label>
-                                <div className="mt-1">
+
+                            {/* Other Module Name */}
+                            {selectedModule === 'other' && (
+                                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                    <label className="text-gray-700 text-xl font-bold mb-2 sm:mr-4">Other Module Name</label>
                                     <input
                                         type="text"
-                                        name="examDate"
-                                        placeholder="Enter date in format mm-dd-yyyy"
-                                        value={values.examDate}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        className="shadow appearance-none box bg-white rounded-md h-9 w-96 py-2 px-3 ring-1 input ring-inset ring-gray-400  rounded-mb focus:outline-none focus:border-[#0A1C3E]"
+                                        id="otherModule"
+                                        name="otherModule"
+                                        value={otherModuleBlur}
+                                        onChange={(e) => setOtherModuleBlur(e.target.value)}
+                                        onBlur={(e) => setOtherModule(e.target.value)}
+                                        placeholder="Enter Module Name"
+                                        className="shadow appearance-none block bg-white rounded-md w-full sm:w-96 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
                                     />
                                 </div>
+                            )}
+
+                            {/* Exam Date */}
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                <label className="text-gray-700 text-xl font-bold mb-2 sm:mr-4">Date</label>
+                                <input
+                                    type="text"
+                                    name="examDate"
+                                    placeholder="Enter date in format mm-dd-yyyy"
+                                    value={values.examDate}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    className="shadow appearance-none block bg-white rounded-md w-full sm:w-96 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
+                                />
                             </div>
-                        </div>
-                        <div className="m-5 col-span-full flex items-center ">
-                            <label className="flex items-center justify-center text-gray-700 text-xl font-bold mt-1 mb-2 mr-28" >Total Marks</label>
-                            <div className="mt-1">
+
+                            {/* Total Marks */}
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                <label className="text-gray-700 text-xl font-bold mb-2 sm:mr-4">Total Marks</label>
                                 <input
                                     type="number"
                                     name="totalMarks"
@@ -165,16 +162,32 @@ function BulkEntryModuleForm() {
                                     value={values.totalMarks}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    placeholder="Enter total Marks"
-                                    className="shadow appearance-none block bg-white rounded-md w-96 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
+                                    placeholder="Enter Total Marks"
+                                    className="shadow appearance-none block bg-white rounded-md w-full sm:w-96 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
                                 />
                             </div>
-                        </div>
-                        <div className="m-5 col-span-full flex items-center ">
-                            <label className="flex items-center justify-center text-gray-700 text-xl font-bold mt-1 mb-2 mr-24" >Upload Sheet</label>
-                            <div className="mt-2 w-96 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 p py-6">
-                                <div className="text-center">
-                                    <div className=" text-sm leading-6 text-gray-600 flex place-items-center">
+
+                            {/* Upload Sheet */}
+                            {/* <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                <label className="text-gray-700 text-xl font-bold mb-2 sm:mr-4">Upload Sheet</label>
+                                <input
+                                    accept=".xlsx,.xls"
+                                    type="file"
+                                    name="examFile"
+                                    id="examFile"
+                                    value={values.examFile}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    className="flex h-10 w-full sm:w-96 rounded-md border border-input bg-white px-3 py-2 text-sm text-gray-400 file:border-0 file:bg-transparent file:text-gray-600"
+                                />
+                                <p className="text-xs text-gray-600">Only .xlsx or .xls supported, max size 10MB</p>
+                            </div> */}
+
+
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                <label className="text-gray-700 text-xl font-bold mb-2 sm:mr-4">Upload Sheet</label>
+                                <div className="w-full sm:w-96 flex justify-center rounded-lg border border-dashed border-gray-900/25 p-3">
+                                    <div className="text-center">
                                         <label
                                             htmlFor="file-upload"
                                             className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
@@ -190,18 +203,27 @@ function BulkEntryModuleForm() {
                                                 className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm text-gray-400 file:border-0 file:bg-transparent file:text-gray-600 file:text-sm file:font-medium"
                                             />
                                         </label>
+                                        <p className="text-xs leading-5 text-gray-600">only .xlsx or .xls supported up to 10MB</p>
                                     </div>
-                                    <p className="text-xs leading-5 text-gray-600">only .xlsx or .xls supported up to 10MB</p>
                                 </div>
                             </div>
+
+
+
+                            {/* Submit Button */}
+                            <div className="flex justify-center mt-8">
+                                <button
+                                    className="text-white bg-[#0A1C3E] hover:text-[#0A1C3E] border border-white hover:bg-white hover:border-[#0A1C3E] focus:ring-4 focus:outline-none focus:ring-[#0A1C3E] font-medium rounded-lg text-sm px-5 py-2.5"
+                                    type="submit"
+                                >
+                                    Submit
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div className="flex items-center ml-80 mt-10  ">
-                        <button className="text-white bg-[#0A1C3E] hover:text-[#0A1C3E] border border-white hover:bg-white hover:border-[#0A1C3E] focus:ring-4 focus:outline-none focus:ring-[#0A1C3E]-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4 me-2 mb-10 dark:border-[#0A1C3E] dark:text-[#0A1C3E] dark:hover:text-white  dark:focus:ring-[#0A1C3E]" variant="primary" type="submit" >Submit</button>
-                    </div>
+                    </form>
+                    <ToastContainer />
                 </div>
-            </form>
-            <ToastContainer />
+            </div>
         </>
     );
 }
