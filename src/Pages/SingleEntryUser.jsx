@@ -108,7 +108,6 @@ const SingleEntryUser = () => {
                       type="email"
                       id="email"
                       placeholder="Enter Email ID"
-                      autoComplete="off"
                       value={values.email}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -199,7 +198,7 @@ const SingleEntryUser = () => {
                       type="password"
                       id="password"
                       placeholder="Enter Password"
-                      autoComplete="off"
+                      autoComplete="new-password"
                       value={values.password}
                       onChange={handleChange}
                       onBlur={handleBlur}
