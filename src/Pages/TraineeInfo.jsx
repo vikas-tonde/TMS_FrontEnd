@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useLoaderData } from "react-router";
 
 const TraineeInfo = () => {
@@ -12,11 +13,12 @@ const TraineeInfo = () => {
     return (
         <>
             <div className="flex-1 bg-gray-500 bg-opacity-40 pb-6 backdrop-blur-md min-h-screen">
-                <p
+                <Link
+                    to="#"
                     className="block py-3 px-3 font-bold text-3xl text-gray-700 Times text-center mx-auto"
                 >
                     Module Information of Trainee
-                </p>
+                </Link>
 
                 {/* Form Wrapper */}
                 <div className="mt-4 mx-6 shadow-xl rounded-lg p-6 bg-white">
@@ -98,8 +100,8 @@ const TraineeInfo = () => {
                             {/* Submit Button */}
                             <div className="flex justify-center w-full">
                                 <button
-                                    className="bg-[#0A1C3E] text-white font-medium text-sm rounded-lg px-5 py-2.5 hover:bg-white hover:text-[#0A1C3E] border border-white focus:outline-none focus:ring-4 focus:ring-[#0A1C3E]"
                                     type="submit"
+                                    className="text-white bg-[#0A1C3E] hover:text-[#0A1C3E] border border-white hover:bg-white hover:border-[#0A1C3E] focus:ring-4 focus:outline-none focus:ring-[#0A1C3E]-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                                 >
                                     Send Remark
                                 </button>
