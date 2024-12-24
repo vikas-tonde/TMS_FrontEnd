@@ -53,7 +53,6 @@ const SingleEntryUser = () => {
   return (
     <>
       <div className="flex-1 bg-gray-500 bg-opacity-40 pb-6 backdrop-blur-md min-h-screen">
-        {/* Dashboard Link */}
         <Link
           to='/users/singleentry'
           className="block py-3 px-3 font-bold text-3xl text-gray-700 Times text-center mx-auto"

@@ -6,96 +6,110 @@ const TraineeInfo = () => {
     const [trainee, setTrainee] = useState({});
 
     useEffect(() => {
-        setTrainee({...loaderData});
-    }, [])
-    
-    return (
-    <>
-        <div className=" mx-auto max-w-full md:p-3 2xl:p-6">
-            <h1 className="text-2xl font-semibold text-center py-2 text-[#0A1C3E] dark:text-white border-b border-gray-200 dark:border-gray-700">Module Information of Trainee</h1>
+        setTrainee({ ...loaderData });
+    }, []);
 
-            <form className=" justify-center " autoComplete="off">
-                <div className="space-y-8 mx-auto  flex items-center justify-center bg">
-                    <div className=" border-gray-900/10 items-center">   
-                        <div className="m-5 col-span-full flex items-center ">
-                            <label className="flex items-center justify-center text-gray-700 text-xl font-bold mt-1 mb-2 mr-20" >Name of Trainee</label>
-                            <div className=" pl-2">
+    return (
+        <>
+            <div className="flex-1 bg-gray-500 bg-opacity-40 pb-6 backdrop-blur-md min-h-screen">
+                <p
+                    className="block py-3 px-3 font-bold text-3xl text-gray-700 Times text-center mx-auto"
+                >
+                    Module Information of Trainee
+                </p>
+
+                {/* Form Wrapper */}
+                <div className="mt-4 mx-6 shadow-xl rounded-lg p-6 bg-white">
+                    <form className="space-y-6" autoComplete="off">
+                        <div className="flex flex-col items-start space-y-4">
+                            {/* Name of Trainee */}
+                            <div className="flex flex-col sm:flex-row items-center w-full">
+                                <label
+                                    htmlFor="name"
+                                    className="text-xl font-bold text-gray-700 w-full sm:w-1/3 mb-2 sm:mb-0"
+                                >
+                                    Name of Trainee
+                                </label>
                                 <input
                                     type="text"
-                                    id="name" 
+                                    id="name"
                                     placeholder="Trainee Name"
-                                    className="shadow appearance-none block bg-white rounded-md w-96 h-9 py-2 px-3 ml-2 mr-5 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
+                                    className="shadow appearance-none block bg-white rounded-md w-full sm:w-2/3 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
                                     disabled
                                     value={`${trainee?.firstName} ${trainee?.lastName}`}
                                 />
                             </div>
-                        </div>
-                        <div className="m-5 col-span-full flex items-center ">
-                            <label className="flex items-center justify-center text-gray-700 text-xl font-bold mt-1 mb-2 mr-32" >Employee Id</label>
-                            <div className=" pl-2">
+
+                            {/* Employee ID */}
+                            <div className="flex flex-col sm:flex-row items-center w-full">
+                                <label
+                                    htmlFor="employeeId"
+                                    className="text-xl font-bold text-gray-700 w-full sm:w-1/3 mb-2 sm:mb-0"
+                                >
+                                    Employee Id
+                                </label>
                                 <input
                                     type="text"
-                                    id="employeeId" 
+                                    id="employeeId"
                                     placeholder="Employee Id"
-                                    className="shadow appearance-none block bg-white rounded-md w-96 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
+                                    className="shadow appearance-none block bg-white rounded-md w-full sm:w-2/3 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
                                     disabled
                                     value={trainee?.employeeId}
                                 />
                             </div>
-                        </div>
-                        <div className="m-5 col-span-full flex items-center ">
-                            <label className="flex items-center justify-center text-gray-700 text-xl font-bold mt-1 mb-2 mr-28" >Average Marks</label>
-                            <div className="mt-1">
+
+                            {/* Average Marks */}
+                            <div className="flex flex-col sm:flex-row items-center w-full">
+                                <label
+                                    htmlFor="marks"
+                                    className="text-xl font-bold text-gray-700 w-full sm:w-1/3 mb-2 sm:mb-0"
+                                >
+                                    Average Marks
+                                </label>
                                 <input
                                     type="number"
+                                    id="marks"
                                     name="marks"
                                     min="0"
                                     placeholder="Average Marks"
-                                    className="shadow appearance-none block bg-white rounded-md w-96 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
+                                    className="shadow appearance-none block bg-white rounded-md w-full sm:w-2/3 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
                                     disabled
                                     value={trainee?.averageMarks}
                                 />
                             </div>
-                        </div>
-                        <div className="m-5 col-span-full flex items-center ">
-                            <label className="flex items-center justify-center text-gray-700 text-xl font-bold mt-1 mb-2 mr-36" htmlFor="remark" >Remarks</label>
-                            <div className="mt-1">
+
+                            {/* Remarks */}
+                            <div className="flex flex-col sm:flex-row items-center w-full">
+                                <label
+                                    htmlFor="remark"
+                                    className="text-xl font-bold text-gray-700 w-full sm:w-1/3 mb-2 sm:mb-0"
+                                >
+                                    Remarks
+                                </label>
                                 <input
                                     type="text"
-                                    placeholder="Remarks"
-                                    name="remark"
                                     id="remark"
-                                    className="shadow appearance-none block bg-white rounded-md w-96 h-9 py-2 px-3 ml-7 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
+                                    name="remark"
+                                    placeholder="Remarks"
+                                    className="shadow appearance-none block bg-white rounded-md w-full sm:w-2/3 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
                                 />
                             </div>
+
+                            {/* Submit Button */}
+                            <div className="flex justify-center w-full">
+                                <button
+                                    className="bg-[#0A1C3E] text-white font-medium text-sm rounded-lg px-5 py-2.5 hover:bg-white hover:text-[#0A1C3E] border border-white focus:outline-none focus:ring-4 focus:ring-[#0A1C3E]"
+                                    type="submit"
+                                >
+                                    Send Remark
+                                </button>
+                            </div>
                         </div>
-                        <div className="w-full flex justify-center">
-                            <button className="text-white bg-[#0A1C3E] hover:text-[#0A1C3E] border border-white hover:bg-white hover:border-[#0A1C3E] focus:ring-4 focus:outline-none focus:ring-[#0A1C3E]-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4 me-2 mb-10 dark:border-[#0A1C3E] dark:text-[#0A1C3E] dark:hover:text-white  dark:focus:ring-[#0A1C3E]" variant="primary" onClick="" type="submit" >Send Remark</button>
-                        </div>
-                        {/* <div>
-                            {module.map((moduleName, index)=>
-                                    <button className="border-black m-2 p-2 rounded-md bg-[#0A1C3E] text-white " key={index} onClick={() => handleShowGraph(moduleName)} value={moduleName}>{moduleName} </button>
-                                )}
-                        </div> */}
-                        {/* <div>
-                            <select className="w-48">
-                                {module.map((moduleName, index)=>
-                                    <option key={index} value={moduleName}>{moduleName}</option>
-                                )}
-                            </select>
-                        </div> */}
-                        {/* <div className='pt-5 '>
-                            <ReactApexChart options={options} series={series} type="line" height={500} width={750} />
-                        </div> */}
-                    </div>
+                    </form>
                 </div>
-                {/* <div className="flex items-center ml-80 mt-10  ">
-                    <button className="text-white bg-[#0A1C3E] hover:text-[#0A1C3E] border border-white hover:bg-white hover:border-[#0A1C3E] focus:ring-4 focus:outline-none focus:ring-[#0A1C3E]-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4 me-2 mb-10 dark:border-[#0A1C3E] dark:text-[#0A1C3E] dark:hover:text-white  dark:focus:ring-[#0A1C3E]" variant="primary" onClick="" type="submit" >Submit</button>
-                </div> */}
-            </form>
-        </div>
-    </>
-    )
+            </div>
+        </>
+    );
 }
 
 export default TraineeInfo;
