@@ -77,7 +77,6 @@ function Exam() {
                 class="h-8 pr-2 py-1 w-full text-gray-800 focus:outline-none"
                 placeholder="Search Trainee by Id / Name" />
             </div>
-
           </div>
 
           <table className="shadow-sm p-6 h-max w-full text-left mb-5 border-spacing-0" id="table-to-xls">
