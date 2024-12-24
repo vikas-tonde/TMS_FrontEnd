@@ -1,4 +1,3 @@
-// import { Space} from "antd";
 import {useState } from "react";
 import { useAuth } from '../services/auth'
 import * as yup from 'yup'
@@ -73,7 +72,7 @@ const Users = () => {
   };
 
   const user1 = {
-    avatar: 'https://cdn.hero.page/pfp/b0b19559-3cbb-4781-8267-814aa9e0f12b-modern-anime-guy-anime-guys-pfp-unique-1.png',
+    avatar: 'src/assets/avatar.svg',
     city: userInfo.loc,
     country: 'India',
     name: userInfo.username,
