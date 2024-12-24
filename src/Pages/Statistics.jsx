@@ -9,7 +9,6 @@ import avatar from '../assets/avatar.svg';
 const Statistics = () => {
   const activeLocation = useSelector(state => state.location);
   const [entries, setEntries] = useState([]);
-  const traineesSelected = useSelector(state => state.trainees);
   // let getToppers = () => {
   //   let currentRank = 1;
   //   let previousMarks = traineesSelected[0]?.Exams[0].averageMarks;
@@ -20,7 +19,7 @@ const Statistics = () => {
   //     if (traineesSelected[i]?.Exams[0].averageMarks !== previousMarks) {
   //       currentRank = currentRank + 1;
   //     }
-      
+
   //     topStudents.push(traineesSelected[i]);
   //     if (currentRank >= 5 && traineesSelected[i]?.Exams[0].averageMarks !== previousMarks) {
   //       break;
@@ -30,9 +29,12 @@ const Statistics = () => {
   //   console.log(topStudents);
   //   setEntries(topStudents);
   // }
-
+  let traineesSelected = useSelector(state => state.trainees) || [];
   useEffect(() => {
-    setEntries(traineesSelected.slice(0,5));
+    if (Array.isArray(traineesSelected))
+    {  
+      setEntries(traineesSelected.slice(0, 5));
+    }
   }, [traineesSelected]);
 
 
@@ -66,8 +68,8 @@ const Statistics = () => {
                   <div className="w-full p-1">
                     <div className="flex items-center gap-4 bg-white rounded-lg shadow-md p-4">
                       <img
-                        src={entry.image ? entry.image: avatar}
-                        
+                        src={entry.image ? entry.image : avatar}
+
                         alt={`${entry?.firstName} ${entry?.lastName}`}
                         className="w-20 h-20 rounded-full object-cover"
                       />
