@@ -63,22 +63,20 @@ export function useAuth() {
 export function RequireAuth({ children }) {
     const auth = useAuth();
     const navigate = useNavigate();
-  
+    const verifyUser = async () => {
+      try {
+        const response = await api.get("/api/users/");
+        const { data } = response.data;
+        auth.setUser(data.user);
+      } catch (error) {
+        navigate("/login", {
+          state: "Please login again.",
+          replace: true,
+        });
+      }
+    };
     useEffect(() => {
       if (!auth.user) {
-        const verifyUser = async () => {
-          try {
-            const response = await api.get("/api/users/");
-            const { data } = response.data;
-            auth.setUser(data.user);
-          } catch (error) {
-            navigate("/login", {
-              state: "Please login again.",
-              replace: true,
-            });
-          }
-        };
-  
         verifyUser();
       }
     }, [auth, navigate]);
