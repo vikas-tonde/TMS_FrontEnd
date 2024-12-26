@@ -6,8 +6,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import { number, object, string } from 'yup';
 import api from "../services/api.jsx";
 
-
-
 const TraineeExamData = () => {
   let batches = useLoaderData();
   const [trainees, setTrainees] = useState([]);
@@ -65,12 +63,12 @@ const TraineeExamData = () => {
     validateOnMount: true
   });
 
-
   useEffect(() => {
     if (values.assessmentId) {
       setSelectedAssessment(assessments?.find(assessment => assessment._id === values.assessmentId) || {});
     }
   }, [values.assessmentId]);
+
   useEffect(() => {
     (async () => {
       if (values.batch) {
@@ -128,13 +126,16 @@ const TraineeExamData = () => {
                       value={values.batch}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className="block w-full rounded-md border-2 py-2 px-4 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500"
+                      className={`block w-full rounded-md border-2 py-2 px-4 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 ${touched.batch && errors.batch ? 'border-red-500' : ''}`}
                     >
                       <option value="" disabled>Select the batch</option>
                       {batches.map(batch => (
                         <option key={batch._id} value={batch._id}>{batch.batchName}</option>
                       ))}
                     </select>
+                    {touched.batch && errors.batch && (
+                      <div className="text-red-700">{errors.batch}</div>
+                    )}
                   </div>
                 </div>
 
@@ -153,7 +154,7 @@ const TraineeExamData = () => {
                       value={values.employeeId}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className="block w-full rounded-md border-2 py-2 px-4 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500"
+                      className={`block w-full rounded-md border-2 py-2 px-4 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 ${touched.employeeId && errors.employeeId ? 'border-red-500' : ''}`}
                     >
                       <option value="" disabled>Select the employee Id</option>
                       {trainees.length > 0 && trainees.map(trainee => (
@@ -162,6 +163,9 @@ const TraineeExamData = () => {
                         </option>
                       ))}
                     </select>
+                    {touched.employeeId && errors.employeeId && (
+                      <div className="text-red-700">{errors.employeeId}</div>
+                    )}
                   </div>
                 </div>
 
@@ -180,13 +184,16 @@ const TraineeExamData = () => {
                       value={values.assessmentType}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className="block w-full rounded-md border-2 py-2 px-4 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500"
+                      className={`block w-full rounded-md border-2 py-2 px-4 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 ${touched.assessmentType && errors.assessmentType ? 'border-red-500' : ''}`}
                     >
                       <option value="" disabled>Select an assessment type</option>
                       <option value="Quiz">Quiz</option>
                       <option value="Assignment">Assignment</option>
                       <option value="Presentation">Presentation</option>
                     </select>
+                    {touched.assessmentType && errors.assessmentType && (
+                      <div className="text-red-700">{errors.assessmentType}</div>
+                    )}
                   </div>
                 </div>
 
@@ -205,7 +212,7 @@ const TraineeExamData = () => {
                       value={values.assessmentId}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className="block w-full rounded-md border-2 py-2 px-4 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500"
+                      className={`block w-full rounded-md border-2 py-2 px-4 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 ${touched.assessmentId && errors.assessmentId ? 'border-red-500' : ''}`}
                     >
                       <option value="" disabled>Select an assessment</option>
                       {assessments.length > 0 && assessments.map(assessment => (
@@ -214,6 +221,9 @@ const TraineeExamData = () => {
                         </option>
                       ))}
                     </select>
+                    {touched.assessmentId && errors.assessmentId && (
+                      <div className="text-red-700">{errors.assessmentId}</div>
+                    )}
                   </div>
                 </div>
 
@@ -234,43 +244,16 @@ const TraineeExamData = () => {
                       value={values.obtainedMarks}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className="block w-full rounded-md border-2 py-2 px-4 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500"
+                      className={`block w-full rounded-md border-2 py-2 px-4 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 ${touched.obtainedMarks && errors.obtainedMarks ? 'border-red-500' : ''}`}
                     />
+                    {touched.obtainedMarks && errors.obtainedMarks && (
+                      <div className="text-red-700">{errors.obtainedMarks}</div>
+                    )}
                   </div>
                 </div>
-                {
-                  touched.batch && errors.batch &&
-                  <div className="text-red-700">
-                    {errors.batch}
-                  </div>
-                }
-                {
-                  touched.employeeId && errors.employeeId &&
-                  <div className="text-red-700">
-                    {errors.employeeId}
-                  </div>
-                }
-                {
-                  touched.assessmentId && errors.assessmentId &&
-                  <div className="text-red-700">
-                    {errors.assessmentId}
-                  </div>
-                }
-                {
-                  touched.assessmentType && errors.assessmentType &&
-                  <div className="text-red-700">
-                    {errors.assessmentType}
-                  </div>
-                }
-                {
-                  touched.obtainedMarks && errors.obtainedMarks &&
-                  <div className="text-red-700">
-                    {errors.obtainedMarks}
-                  </div>
-                }
+
                 {/* Submit Button */}
                 <div className="flex items-center justify-center">
-
                   <button
                     type="submit"
                     ref={submitButtonRef}

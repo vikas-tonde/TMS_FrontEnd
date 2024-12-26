@@ -33,7 +33,7 @@ function BulkEntryXlsx() {
     actions.resetForm();
   };
 
-  const { handleChange, handleBlur, values, handleSubmit, errors, touched } = useFormik({
+  const { handleChange, handleBlur, values, handleSubmit, errors, touched, isValid } = useFormik({
     initialValues: {
       batchName: '',
       location: '',
@@ -102,8 +102,8 @@ function BulkEntryXlsx() {
                       onBlur={handleBlur}
                       className="block w-full h-9 py-2 px-3 bg-white rounded-md border-0 text-gray-800 ring-1 ring-inset ring-gray-400"
                     >
-                      {/* <option value="" disabled>Select the batch</option>
-                      {batches.map(batch => {
+                      <option value="" disabled>Select location</option>
+                      {/* {batches.map(batch => {
                         return <option key={batch._id} value={batch._id}>{batch.batchName}</option>;
                       })} */}
                     </select>
