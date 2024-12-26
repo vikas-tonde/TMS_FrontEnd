@@ -97,7 +97,7 @@ function BulkEntryXlsx() {
                 </div>
 
                 {/* File Upload */}
-                <div className="flex flex-col sm:flex-row items-start justify-between">
+                <div className="flex flex-col sm:flex-row items-center justify-between">
                   <label htmlFor="userDetailsFile" className="text-gray-700 text-xl font-bold mb-2 sm:mr-4">Upload Sheet</label>
                   <div className="w-full sm:w-96 flex justify-center rounded-lg border border-dashed border-gray-900/25 p-3">
                     <div className="text-center">
