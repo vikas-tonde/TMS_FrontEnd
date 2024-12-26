@@ -10,7 +10,6 @@ const Dashboard = () => {
   const activeLocation = useSelector(state => state.location);
   const activeBatch = useSelector(state => state.batch);
   useEffect(() => {
-    console.log("Called");
     (async () => {
       let endpoint = `/${activeLocation}`;
       if (activeBatch) {

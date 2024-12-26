@@ -42,12 +42,12 @@ const SideBar = ({ children }) => {
         },
         {
           path: "/exam/add",
-          name: "Add exam",
+          name: "Add Exam",
           icon: <MdAddCircle />,
         },
         {
           path: "/exams/add",
-          name: "Add exams",
+          name: "Add Multiple Exams",
           icon: <BiSolidSelectMultiple />,
         },
       ],
@@ -64,12 +64,12 @@ const SideBar = ({ children }) => {
         },
         {
           path: "/user/add",
-          name: "Add user",
+          name: "Add User",
           icon: <MdAddCircle />,
         },
         {
           path: "/users/add",
-          name: "Add users",
+          name: "Add Multiple Users",
           icon: <BiSolidSelectMultiple />,
         },
       ],
