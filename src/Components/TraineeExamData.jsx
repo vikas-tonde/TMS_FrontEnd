@@ -1,26 +1,36 @@
-import React, { useEffect, useState } from "react";
 import { useFormik } from 'formik';
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
 import { useLoaderData } from "react-router";
+import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import { number, object, string } from 'yup';
 import api from "../services/api.jsx";
 
-const examFormSchema = object().shape({
-  batch: string().required("Batch is required"),
-  assessmentType: string().required("Assessment type is required"),
-  assessmentId: string().required("Assessment name is required"),
-  obtainedMarks: number().required("Obtained marks are required"),
-  employeeId: string().required("Employee ID is required"),
-});
+
 
 const TraineeExamData = () => {
   let batches = useLoaderData();
   const [trainees, setTrainees] = useState([]);
   const [assessments, setAssessments] = useState([]);
+  const [selectedAssessment, setSelectedAssessment] = useState({});
+  const submitButtonRef = useRef(null);
+
+  const examFormSchema = object().shape({
+    batch: string().required("Batch is required"),
+    assessmentType: string().required("Assessment type is required."),
+    assessmentId: string().required("Assessment name is required."),
+    obtainedMarks: number()
+      .max(selectedAssessment.totalMarks, `The obtained marks must be less than or equal to ${selectedAssessment.totalMarks}.`)
+      .min(0, "The obtained marks must be greater than or equal to 0.")
+      .required("Obtained marks are required"),
+    employeeId: string().required("Employee ID is required."),
+  });
 
   const submitHandler = async (values, actions) => {
     try {
+      if (submitButtonRef?.current) {
+        submitButtonRef.current.disabled = true;
+      }
       let reqBody = {
         assessmentId: values.assessmentId,
         employeeId: values.employeeId,
@@ -28,15 +38,21 @@ const TraineeExamData = () => {
       };
       let response = await api.post("/api/admin/single/assessment", reqBody);
       console.log(response.data.message);
+      if (submitButtonRef?.current) {
+        submitButtonRef.current.disabled = false;
+      }
       toast.success(response.data.message);
     } catch (error) {
-      toast.error('Something went wrong while adding user. Please check all fields carefully.');
+      toast.error('Something went wrong while adding user assessment details. Please check all fields carefully.');
       console.log(error.response.data.message);
+      if (submitButtonRef?.current) {
+        submitButtonRef.current.disabled = false;
+      }
     }
     actions.resetForm();
   };
 
-  const { handleChange, handleBlur, values, handleSubmit, errors, touched } = useFormik({
+  const { handleChange, handleBlur, values, handleSubmit, errors, touched, isValid } = useFormik({
     initialValues: {
       batch: '',
       assessmentType: '',
@@ -45,9 +61,16 @@ const TraineeExamData = () => {
       employeeId: '',
     },
     validationSchema: examFormSchema,
-    onSubmit: submitHandler
+    onSubmit: submitHandler,
+    validateOnMount: true
   });
 
+
+  useEffect(() => {
+    if (values.assessmentId) {
+      setSelectedAssessment(assessments?.find(assessment => assessment._id === values.assessmentId) || {});
+    }
+  }, [values.assessmentId]);
   useEffect(() => {
     (async () => {
       if (values.batch) {
@@ -63,10 +86,11 @@ const TraineeExamData = () => {
 
   useEffect(() => {
     (async () => {
-      if (values.assessmentType) {
+      if (values.assessmentType && values.batch) {
         try {
           let response = await api.get(`/api/admin/assessments/${values.batch}/${values.assessmentType}`);
           setAssessments(response.data.data);
+          console.log(response.data.data);
         } catch (error) {
           setAssessments([]);
         }
@@ -206,6 +230,7 @@ const TraineeExamData = () => {
                       type="number"
                       id="obtainedMarks"
                       name="obtainedMarks"
+                      disabled={!selectedAssessment?.totalMarks}
                       value={values.obtainedMarks}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -213,12 +238,43 @@ const TraineeExamData = () => {
                     />
                   </div>
                 </div>
-
+                {
+                  touched.batch && errors.batch &&
+                  <div className="text-red-700">
+                    {errors.batch}
+                  </div>
+                }
+                {
+                  touched.employeeId && errors.employeeId &&
+                  <div className="text-red-700">
+                    {errors.employeeId}
+                  </div>
+                }
+                {
+                  touched.assessmentId && errors.assessmentId &&
+                  <div className="text-red-700">
+                    {errors.assessmentId}
+                  </div>
+                }
+                {
+                  touched.assessmentType && errors.assessmentType &&
+                  <div className="text-red-700">
+                    {errors.assessmentType}
+                  </div>
+                }
+                {
+                  touched.obtainedMarks && errors.obtainedMarks &&
+                  <div className="text-red-700">
+                    {errors.obtainedMarks}
+                  </div>
+                }
                 {/* Submit Button */}
                 <div className="flex items-center justify-center">
-                  
+
                   <button
                     type="submit"
+                    ref={submitButtonRef}
+                    disabled={!isValid}
                     className="text-white bg-[#0A1C3E] hover:text-[#0A1C3E] border border-white hover:bg-white hover:border-[#0A1C3E] focus:ring-4 focus:outline-none focus:ring-[#0A1C3E]-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                   >
                     Submit

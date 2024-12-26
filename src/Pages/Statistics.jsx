@@ -31,11 +31,13 @@ const Statistics = () => {
   // }
   let traineesSelected = useSelector(state => state.trainees) || [];
   useEffect(() => {
-    if (Array.isArray(traineesSelected))
-    {  
+    if (Array.isArray(traineesSelected)) {
       setEntries(traineesSelected.slice(0, 5));
     }
-  }, [traineesSelected]);
+    else {
+      setEntries([]);
+    }
+  }, [traineesSelected, activeLocation]);
 
 
   const settings = {
@@ -62,27 +64,31 @@ const Statistics = () => {
               <div className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-transparent bg-gradient-to-r from-transparent via-gray-500 to-transparent opacity-75"></div>
               <span className="text-lg font-semibold relative z-10 text-[#0A1C3E] bg-white px-6">Toppers</span>
             </span>
-            <Slider {...settings} className="max-w-3xl mx-auto">
-              {entries.map((entry, index) => (
-                <div key={index} className="py-1 sm:py-4">
-                  <div className="w-full p-1">
-                    <div className="flex items-center gap-4 bg-white rounded-lg shadow-md p-4">
-                      <img
-                        src={entry.image ? entry.image : avatar}
+            {
+              entries.length ?
+                <Slider {...settings} className="max-w-3xl mx-auto">
+                  {entries.map((entry, index) => (
+                    <div key={index} className="py-1 sm:py-4">
+                      <div className="w-full p-1">
+                        <div className="flex items-center gap-4 bg-white rounded-lg shadow-md p-4">
+                          <img
+                            src={entry.image ? entry.image : avatar}
 
-                        alt={`${entry?.firstName} ${entry?.lastName}`}
-                        className="w-20 h-20 rounded-full object-cover"
-                      />
-                      <div>
-                        <h3 className="text-lg font-medium text-gray-900">{`${entry?.firstName} ${entry?.lastName}`}</h3>
-                        <p className="text-sm text-gray-600">Score: {entry?.Exams[0]?.averageMarks}</p>
-                        <p className="text-sm text-gray-600">Email: {entry?.email}</p>
+                            alt={`${entry?.firstName} ${entry?.lastName}`}
+                            className="w-20 h-20 rounded-full object-cover"
+                          />
+                          <div>
+                            <h3 className="text-lg font-medium text-gray-900">{`${entry?.firstName} ${entry?.lastName}`}</h3>
+                            <p className="text-sm text-gray-600">Score: {entry?.Exams[0]?.averageMarks}</p>
+                            <p className="text-sm text-gray-600">Email: {entry?.email}</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              ))}
-            </Slider>
+                  ))}
+                </Slider>
+                : <p className="text-center h-32">No Record Found!</p>
+            }
           </div>
 
           {/* Statistics Section */}

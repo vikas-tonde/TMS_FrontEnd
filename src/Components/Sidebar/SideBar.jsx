@@ -41,36 +41,36 @@ const SideBar = ({ children }) => {
           icon: <PiExamFill />,
         },
         {
-          path: "/exams/single",
-          name: "Single Entry",
+          path: "/exam/add",
+          name: "Add exam",
           icon: <MdAddCircle />,
         },
         {
-          path: "/exams/addbulk",
-          name: "Bulk Entry",
+          path: "/exams/add",
+          name: "Add exams",
           icon: <BiSolidSelectMultiple />,
         },
       ],
     },
     {
       path: "/users",
-      name: "Users Details",
+      name: "Users",
       icon: <FaUser />,
       subRoutes: [
-        {
-          path: "/user/add",
-          name: "Single Entry",
-          icon: <MdAddCircle />,
-        },
-        {
-          path: "/users/add",
-          name: "Bulk Entry",
-          icon: <BiSolidSelectMultiple />,
-        },
         {
           path: "/users",
           name: "All Users",
           icon: <FaUsers />,
+        },
+        {
+          path: "/user/add",
+          name: "Add user",
+          icon: <MdAddCircle />,
+        },
+        {
+          path: "/users/add",
+          name: "Add users",
+          icon: <BiSolidSelectMultiple />,
         },
       ],
     },

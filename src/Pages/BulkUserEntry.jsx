@@ -1,6 +1,7 @@
 import api from "../services/api";
 import { object, string, mixed } from 'yup';
 import { useFormik } from 'formik';
+import { FaDownload } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from "react-router-dom";
@@ -45,8 +46,8 @@ function BulkEntryXlsx() {
   return (
     <>
       <div className="flex-1 bg-gray-500 bg-opacity-40 pb-6 backdrop-blur-md min-h-screen">
-        <Link 
-          to='/users/addbulk' 
+        <Link
+          to='/users/addbulk'
           className="block py-3 px-3 font-bold text-3xl text-gray-700 Times text-center mx-auto"
         >
           Bulk Entry of Trainee using xlsx
@@ -111,6 +112,11 @@ function BulkEntryXlsx() {
                       <p className="text-xs leading-5 text-gray-600">only .xlsx or .xls supported up to 10MB</p>
                     </div>
                   </div>
+                  <Link
+                    className="text-white flex flex-row gap-1 bg-[#0A1C3E] hover:text-[#0A1C3E] border border-white hover:bg-white hover:border-[#0A1C3E] focus:ring-4 focus:outline-none focus:ring-[#0A1C3E]-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4"
+                    to="http://localhost:5000/api/users/download/trainee/input">
+                      <FaDownload /> Sample.xlss
+                    </Link>
                 </div>
 
                 {/* Submit Button */}
