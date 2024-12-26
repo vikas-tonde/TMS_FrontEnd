@@ -109,9 +109,9 @@ const Users = () => {
 
         {/* StatisticsTabsMenu without 3D effect */}
         <div className="mt-4 mx-6 shadow-xl rounded-lg bg-white">
-          <div className="flex flex-col items-center justify-center p-3 w-full md:flex-row">
-            <div className="">
-              <div className="bg-white border rounded-md shadow-md p-4 my-4 w-full max-w-xs md:max-w-sm">
+          <div className="flex flex-col items-center justify-center p-6 w-full md:flex-row">
+            <div className="mx-10">
+              <div className="bg-white border rounded-md shadow-md p-4 mb-4 w-full max-w-xs md:max-w-sm">
                 <div className="flex flex-col items-center">
                   <img
                     src={imageUrl}
@@ -132,110 +132,124 @@ const Users = () => {
                 <p className="mt-1 text-sm text-gray-500 dark:text-gray-300 grid items-center" id="file_input_help">(Only SVG, PNG, JPG or GIF)</p>
               </div>
             </div>
-            <div class="flex items-center space-x-4">
-              <div>
-                <div className=" flex mb-2 m-4">
-                  <form className="flex flex-col gap-6 w-100">
-                    <div className="md:flex md:items-center mb-1">
-                      <div className="md:w-3/5">
-                        <label className="block text-gray-700 font-bold md: mb-1 md:mb-0 pr-4 items-start" htmlFor="name">
-                          Name of Trainee
-                        </label>
-                      </div>
-                      <div className="md:w-2/3">
-                        <input
-                          className="bg-gray-200 shadow appearance-none border-2 border-gray-200 rounded w-80 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                          type="name"
-                          placeholder="Name of Trainee"
-                          aria-label="Disabled input example"
-                          defaultValue={userInfo.username}
-                          disabled readOnly
-                        />
-                      </div>
-                    </div>
-                    <div className="md:flex md:items-center mb-1">
-                      <div className="md:w-3/5">
-                        <label className="block text-gray-700 font-bold md: mb-1 md:mb-0 pr-4 items-start" htmlFor="email">
-                          Email address
-                        </label>
-                      </div>
-                      <div className="md:w-2/3">
-                        <input
-                          className="bg-gray-200 shadow appearance-none border-2 border-gray-200 rounded w-80 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                          type="email"
-                          placeholder="Email Address"
-                          aria-label="Disabled input example"
-                          defaultValue={userInfo.email}
-                          disabled readOnly
-                        />
-                      </div>
-                    </div>
-                    <div className="md:flex md:items-center mb-1">
-                      <div className="md:w-3/5">
-                        <label className="block text-gray-700 font-bold md: mb-1 md:mb-0 pr-4 items-start" htmlFor="id">
-                          Employee ID
-                        </label>
-                      </div>
-                      <div className="md:w-2/3">
-                        <input
-                          className="bg-gray-200 shadow appearance-none border-2 border-gray-200 rounded w-80 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                          type="name"
-                          placeholder="Employee ID"
-                          aria-label="Disabled input example"
-                          defaultValue={userInfo.empId}
-                          disabled readOnly
-                        />
-                      </div>
-                    </div>
 
-                    <div className="md:flex md:items-center mb-1">
-                      <div className="md:w-3/5">
-                        <label className="block text-gray-700 font-bold md: mb-1 md:mb-0 pr-4 items-start" >
-                          Change Password
-                        </label>
-                      </div>
-                      <div className="md:w-2/3">
-                        <input
-                          className={`bg-gray-200 shadow appearance-none border-2 border-gray-200 rounded w-80 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-800 ${editMode ? 'bg-white' : ''}`}
-                          // id="inline-password" 
-                          type="password"
-                          autoComplete="off"
-                          placeholder="Enter New Password"
-                          value={password} onChange={(e) => { handleChangePassword(e) }} disabled={!editMode}
-                        />
-                        <span className="hover:bg-[#000]"><i className="fas fa-eye"></i></span>
-                        {passwordError && <p className="text-red-500 text-xs italic">{passwordError}</p>}
-                      </div>
+            <div className="flex items-center space-x-4 w-full md:w-2/3">
+              <div className="w-full">
+                <form className="flex flex-col gap-4">
+                  <div className="md:flex md:items-center mb-1">
+                    <div className="md:w-3/5">
+                      <label className="block text-gray-700 font-bold md: mb-1 md:mb-0 pr-4 items-start" htmlFor="name">
+                        Name of Trainee
+                      </label>
                     </div>
-
-                    <div className="md:flex md:items-center mb-1">
-                      <div className="md:w-3/5">
-                        <label className="block text-gray-700 font-bold md: mb-1 md:mb-0 pr-4 items-start">
-                          {/* <label className="block text-gray-700 font-bold md: mb-1 md:mb-0 pr-4 items-start" htmlFor="inline-password"> */}
-                          Confirm Passoword
-                        </label>
-                      </div>
-                      <div className="md:w-2/3">
-                        <input
-                          className={`bg-gray-200 shadow appearance-none border-2 border-gray-200 rounded w-80 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-800 ${editMode ? 'bg-white' : ''}`}
-                          // id="inline-password" 
-                          type="password"
-                          autoComplete="off"
-                          placeholder="Re-Enter Password"
-                          onChange={(e) => setConfirmPassword(e.target.value)}
-                          disabled={!editMode}
-                        />
-                        {confirmPasswordError && <p className="text-red-500 text-xs italic">{confirmPasswordError}</p>}
-                      </div>
+                    <div className="md:w-2/3 w-full">
+                      <input
+                        className="bg-gray-200 shadow appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                        type="text"
+                        placeholder="Name of Trainee"
+                        aria-label="Disabled input example"
+                        defaultValue={userInfo.username}
+                        disabled
+                        readOnly
+                      />
                     </div>
+                  </div>
 
-                    <div className="flex items-center justify-center">
-                      <button className="text-white bg-[#0A1C3E] hover:text-[#0A1C3E] border border-white hover:bg-white hover:border-[#0A1C3E] focus:ring-4 focus:outline-none focus:ring-[#0A1C3E]-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4 me-2 mb-5 dark:border-[#0A1C3E] dark:text-[#0A1C3E] dark:hover:text-white  dark:focus:ring-[#0A1C3E]" variant="primary" onClick={handleEditClick} disabled={editMode}>Edit</button>
-                      <button className="text-white bg-[#0A1C3E] hover:text-[#0A1C3E] border border-white hover:bg-white hover:border-[#0A1C3E] focus:ring-4 focus:outline-none focus:ring-[#0A1C3E]-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4 me-2 mb-5 dark:border-[#0A1C3E] dark:text-[#0A1C3E] dark:hover:text-white  dark:focus:ring-[#0A1C3E]" variant="primary" onClick={handleSubmit} type="submit" disabled={!editMode} >Submit</button>
-
+                  <div className="md:flex md:items-center mb-1">
+                    <div className="md:w-3/5">
+                      <label className="block text-gray-700 font-bold md: mb-1 md:mb-0 pr-4 items-start" htmlFor="email">
+                        Email address
+                      </label>
                     </div>
-                  </form>
-                </div>
+                    <div className="md:w-2/3 w-full">
+                      <input
+                        className="bg-gray-200 shadow appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                        type="email"
+                        placeholder="Email Address"
+                        aria-label="Disabled input example"
+                        defaultValue={userInfo.email}
+                        disabled
+                        readOnly
+                      />
+                    </div>
+                  </div>
+
+                  <div className="md:flex md:items-center mb-1">
+                    <div className="md:w-3/5">
+                      <label className="block text-gray-700 font-bold md: mb-1 md:mb-0 pr-4 items-start" htmlFor="id">
+                        Employee ID
+                      </label>
+                    </div>
+                    <div className="md:w-2/3 w-full">
+                      <input
+                        className="bg-gray-200 shadow appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                        type="text"
+                        placeholder="Employee ID"
+                        aria-label="Disabled input example"
+                        defaultValue={userInfo.empId}
+                        disabled
+                        readOnly
+                      />
+                    </div>
+                  </div>
+
+                  <div className="md:flex md:items-center mb-1">
+                    <div className="md:w-3/5">
+                      <label className="block text-gray-700 font-bold md: mb-1 md:mb-0 pr-4 items-start">
+                        Change Password
+                      </label>
+                    </div>
+                    <div className="md:w-2/3 w-full">
+                      <input
+                        className={`bg-gray-200 shadow appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-800 ${editMode ? 'bg-white' : ''}`}
+                        type="password"
+                        autoComplete="off"
+                        placeholder="Enter New Password"
+                        value={password} onChange={handleChangePassword} disabled={!editMode}
+                      />
+                      {passwordError && <p className="text-red-500 text-xs italic">{passwordError}</p>}
+                    </div>
+                  </div>
+
+                  <div className="md:flex md:items-center mb-1">
+                    <div className="md:w-3/5">
+                      <label className="block text-gray-700 font-bold md: mb-1 md:mb-0 pr-4 items-start">
+                        Confirm Password
+                      </label>
+                    </div>
+                    <div className="md:w-2/3 w-full">
+                      <input
+                        className={`bg-gray-200 shadow appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-800 ${editMode ? 'bg-white' : ''}`}
+                        type="password"
+                        autoComplete="off"
+                        placeholder="Re-Enter Password"
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        disabled={!editMode}
+                      />
+                      {confirmPasswordError && <p className="text-red-500 text-xs italic">{confirmPasswordError}</p>}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-center">
+                    <button
+                      className="text-white bg-[#0A1C3E] hover:text-[#0A1C3E] border border-white hover:bg-white hover:border-[#0A1C3E] focus:ring-4 focus:outline-none focus:ring-[#0A1C3E]-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4 me-2 mb-5 dark:border-[#0A1C3E] dark:text-[#0A1C3E] dark:hover:text-white  dark:focus:ring-[#0A1C3E]"
+                      variant="primary"
+                      onClick={handleEditClick}
+                      disabled={editMode}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="text-white bg-[#0A1C3E] hover:text-[#0A1C3E] border border-white hover:bg-white hover:border-[#0A1C3E] focus:ring-4 focus:outline-none focus:ring-[#0A1C3E]-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4 me-2 mb-5 dark:border-[#0A1C3E] dark:text-[#0A1C3E] dark:hover:text-white  dark:focus:ring-[#0A1C3E]"
+                      variant="primary"
+                      onClick={handleSubmit}
+                      type="submit"
+                      disabled={!editMode}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
 
