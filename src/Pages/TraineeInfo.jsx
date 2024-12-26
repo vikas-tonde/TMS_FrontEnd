@@ -130,7 +130,7 @@ const TraineeInfo = () => {
             </div>
           </form>
           {
-            trainee?.remarks && <div className="flex flex-col sm:flex-row items-center w-full mt-3">
+            trainee?.remarks?.length > 0 && <div className="flex flex-col sm:flex-row items-center w-full mt-3">
               <label
                 htmlFor="remark"
                 className="text-xl font-bold text-gray-700 w-full sm:w-1/3 mb-2 sm:mb-0"
