@@ -75,7 +75,7 @@ function BulkEntryXlsx() {
                 </div>
 
                 {/* Location */}
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                {/* <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                   <label className="text-gray-700 text-xl font-bold mb-2 sm:mr-4">Location</label>
                   <input
                     type="text"
@@ -87,6 +87,28 @@ function BulkEntryXlsx() {
                     onBlur={handleBlur}
                     className="shadow appearance-none block bg-white rounded-md w-full sm:w-96 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
                   />
+                </div> */}
+
+                <div className="flex flex-col sm:flex-row items-start justify-between">
+                  <label htmlFor="batch" className="text-gray-700 text-xl font-bold mb-2 sm:mr-4">Location</label>
+                  <div className="w-full sm:w-96">
+                    <select
+                      id="location"
+                      name="location"
+                      placeholder="Enter Location"
+                      autoComplete="off"
+                      value={values.location}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className="block w-full h-9 py-2 px-3 bg-white rounded-md border-0 text-gray-800 ring-1 ring-inset ring-gray-400"
+                    >
+                      {/* <option value="" disabled>Select the batch</option>
+                      {batches.map(batch => {
+                        return <option key={batch._id} value={batch._id}>{batch.batchName}</option>;
+                      })} */}
+                    </select>
+                    {/* {errors.batch && touched.batch && <p className="text-[#dc2626]">{errors.batch}</p>} */}
+                  </div>
                 </div>
 
                 {/* Upload Sheet */}
@@ -112,21 +134,21 @@ function BulkEntryXlsx() {
                       <p className="text-xs leading-5 text-gray-600">only .xlsx or .xls supported up to 10MB</p>
                     </div>
                   </div>
-                  <Link
-                    className="text-white flex flex-row gap-1 bg-[#0A1C3E] hover:text-[#0A1C3E] border border-white hover:bg-white hover:border-[#0A1C3E] focus:ring-4 focus:outline-none focus:ring-[#0A1C3E]-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4"
-                    to="http://localhost:5000/api/users/download/trainee/input">
-                      <FaDownload /> Sample.xlss
-                    </Link>
                 </div>
 
                 {/* Submit Button */}
                 <div className="flex justify-center">
                   <button
                     type="submit"
-                    className="text-white bg-[#0A1C3E] hover:text-[#0A1C3E] border border-white hover:bg-white hover:border-[#0A1C3E] focus:ring-4 focus:outline-none focus:ring-[#0A1C3E]-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4"
+                    className="text-white bg-[#0A1C3E] hover:text-[#0A1C3E] border border-white hover:bg-white hover:border-[#0A1C3E] focus:ring-4 focus:outline-none focus:ring-[#0A1C3E]-100 font-medium rounded-lg text-sm px-5 py-1.5 text-center m-4"
                   >
                     Submit
                   </button>
+                  <Link
+                    className="text-white bg-[#0A1C3E] hover:text-[#0A1C3E] border border-white hover:bg-white hover:border-[#0A1C3E] focus:ring-4 focus:outline-none focus:ring-[#0A1C3E]-100 font-medium rounded-lg text-sm px-5 py-1.5 text-center m-4"
+                    to="http://localhost:5000/api/users/download/trainee/input">
+                       Download Sample
+                    </Link>
                 </div>
 
               </div>
