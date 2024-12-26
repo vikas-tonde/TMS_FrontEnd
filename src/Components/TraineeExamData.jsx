@@ -134,7 +134,7 @@ const TraineeExamData = () => {
                       ))}
                     </select>
                     {touched.batch && errors.batch && (
-                      <div className="text-red-700">{errors.batch}</div>
+                      <div className="text-xs italic text-red-700">{errors.batch}</div>
                     )}
                   </div>
                 </div>
@@ -164,7 +164,7 @@ const TraineeExamData = () => {
                       ))}
                     </select>
                     {touched.employeeId && errors.employeeId && (
-                      <div className="text-red-700">{errors.employeeId}</div>
+                      <div className="text-xs italic text-red-700">{errors.employeeId}</div>
                     )}
                   </div>
                 </div>
@@ -192,7 +192,7 @@ const TraineeExamData = () => {
                       <option value="Presentation">Presentation</option>
                     </select>
                     {touched.assessmentType && errors.assessmentType && (
-                      <div className="text-red-700">{errors.assessmentType}</div>
+                      <div className="text-xs italic text-red-700">{errors.assessmentType}</div>
                     )}
                   </div>
                 </div>
@@ -222,7 +222,7 @@ const TraineeExamData = () => {
                       ))}
                     </select>
                     {touched.assessmentId && errors.assessmentId && (
-                      <div className="text-red-700">{errors.assessmentId}</div>
+                      <div className="text-xs italic text-red-700">{errors.assessmentId}</div>
                     )}
                   </div>
                 </div>
@@ -247,7 +247,7 @@ const TraineeExamData = () => {
                       className={`block w-full rounded-md border-2 py-2 px-4 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 ${touched.obtainedMarks && errors.obtainedMarks ? 'border-red-500' : ''}`}
                     />
                     {touched.obtainedMarks && errors.obtainedMarks && (
-                      <div className="text-red-700">{errors.obtainedMarks}</div>
+                      <div className="text-xs italic text-red-700">{errors.obtainedMarks}</div>
                     )}
                   </div>
                 </div>

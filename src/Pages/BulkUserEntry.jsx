@@ -116,7 +116,7 @@ function BulkEntryXlsx() {
                         />
                       </label>
                       <p className="text-xs leading-5 text-gray-600">Only .xlsx or .xls supported up to 10MB</p>
-                    {errors.userDetailsFile && touched.userDetailsFile && ( <p className="text-xs text-[#dc2626]">{errors.userDetailsFile}</p> )}
+                      {errors.userDetailsFile && touched.userDetailsFile && (<p className="text-xs text-[#dc2626]">{errors.userDetailsFile}</p>)}
                     </div>
                   </div>
                 </div>
@@ -129,21 +129,25 @@ function BulkEntryXlsx() {
                   >
                     Submit
                   </button>
-                  <Link
+                  {/* <Link
                     className="text-white bg-[#0A1C3E] hover:text-[#0A1C3E] border border-white hover:bg-white hover:border-[#0A1C3E] focus:ring-4 focus:outline-none focus:ring-[#0A1C3E]-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4"
-                    to="http://localhost:5000/api/users/download/trainee/input"
+                    to="#"
+                    > */}
+                  <a href={`/api/users/download/trainee/input`} download="TraineeExcelSample.xlsx"
+                     className="text-white bg-[#0A1C3E] hover:text-[#0A1C3E] border border-white hover:bg-white hover:border-[#0A1C3E] focus:ring-4 focus:outline-none focus:ring-[#0A1C3E]-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4"
                   >
                     Download Sample
                     <FaDownload className="inline-block ml-2" />
-                  </Link>
-                </div>
-
+                  </a>
+                {/* </Link> */}
               </div>
-            </form>
-            <ToastContainer />
+
           </div>
-        </div>
+        </form>
+        <ToastContainer />
       </div>
+    </div >
+      </div >
     </>
   );
 }
