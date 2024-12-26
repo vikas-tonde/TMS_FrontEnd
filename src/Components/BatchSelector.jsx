@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiChevronDown } from "react-icons/bi";
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,12 +12,18 @@ const Selector = () => {
   const [open, setOpen] = useState(false);
   const activeLocation = useSelector(state => state.location);
   const dispatch = useDispatch();
-
+  const batchInputRef = useRef();
   useEffect(() => {
+    if (batchInputRef.current) {
+      setInputValue("");
+      setSelected("");
+      batchInputRef.current.value = '';
+    }
     (async () => {
       try {
         const response = await api.get(`/api/admin/batches/${activeLocation}`);
         setBatches(response.data.data);
+
       } catch (error) {
         setBatches([]);
       }
@@ -28,6 +34,10 @@ const Selector = () => {
   useEffect(() => {
     if (selected) {
       dispatch(fetchCurrentBatch(selected));
+    }
+    if(!selected)
+    {
+      dispatch(fetchCurrentBatch(''));
     }
   }, [selected, dispatch]);
 
@@ -52,6 +62,7 @@ const Selector = () => {
         <div className="flex items-center px-1 sticky bg-white">
           <AiOutlineSearch size={18} className="text-gray-700" />
           <input
+            ref={batchInputRef}
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value.toLowerCase())}
