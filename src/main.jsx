@@ -52,12 +52,12 @@ const router = createBrowserRouter(
               <Exams />
             </Suspense>
           } loader={getBatches} />
-          <Route path="/exams/single" element={
+          <Route path="/exam/add" element={
             <Suspense fallback={<div>Loading batch details...</div>}>
               <TraineeExamData />
             </Suspense>
           } loader={getBatches} />
-          <Route path="/exams/addbulk" element={
+          <Route path="/exams/add" element={
             <Suspense fallback={<div>Loading batch details...</div>}>
               <BulkEntryModuleForm />
             </Suspense>
