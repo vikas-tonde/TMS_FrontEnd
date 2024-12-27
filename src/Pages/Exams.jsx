@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { createColumnHelper, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table";
 import { Link } from "react-router-dom";
 import { useLoaderData } from "react-router";
@@ -9,6 +9,7 @@ function Exams() {
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedBatch, setSelectedBatch] = useState("");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -65,10 +66,16 @@ function Exams() {
     }),
   ];
 
-  const [search, setSearch] = useState("");
+  const filteredExams = exams.filter((exam) => {
+    const searchTerm = search.toLowerCase();
+    return (
+      exam.assessmentName.toLowerCase().includes(searchTerm) ||
+      exam.moduleName.toLowerCase().includes(searchTerm)
+    );
+  });
 
   const table = useReactTable({
-    data: exams,
+    data: filteredExams,
     columns,
     state: {},
     getFilteredRowModel: getFilteredRowModel(),
@@ -87,28 +94,30 @@ function Exams() {
         </Link>
 
         {/* StatisticsTabsMenu without 3D effect */}
-        <div className="mt-4 mx-6 shadow-md rounded-lg p-3 bg-white">
+        <div className="mt-4 mx-6 shadow-xl rounded-lg p-3 bg-white">
+        <div className="mx-auto max-w-full md:p-3 2xl:p-6 flex justify-center flex-col items-center">
 
-          <div className="my-3 col-span-full flex items-center justify-center space-x-4">
-            <label
-              htmlFor="batch"
-              className="block text-xl font-medium h-9 text-gray-900 mr-2"
-            >
-              Select batch :
+
+
+
+
+          <div className="flex flex-col sm:flex-row items-start justify-between mb-4">
+            <label htmlFor="batch" className="text-gray-700 text-xl font-semibold mb-1 sm:mr-4">
+              Select Batch
             </label>
-            <div className="mt-4 sm:mt-0 w-full sm:w-96">
+            <div className="w-full sm:w-96">
               <select
                 id="batch"
                 name="batch"
                 autoComplete="off"
                 value={selectedBatch}
                 onChange={(e) => setSelectedBatch(e.target.value)}
-                className="block w-full h-9 rounded-md border-0 py-1.5 text-gray-800 shadow-md ring-1 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset focus:text-gray-800 sm:max-w-xs sm:text-sm sm:leading-6"
+                className="block w-full h-9 py-2 px-3 bg-white rounded-md border-0 text-gray-800 ring-1 ring-inset ring-gray-400"
               >
-                <option value="" selected disabled>
+                <option value="" disabled>
                   Select the batch
                 </option>
-                {batches.map(batch => (
+                {batches.map((batch) => (
                   <option key={batch._id} value={batch._id}>
                     {batch.batchName}
                   </option>
@@ -118,69 +127,65 @@ function Exams() {
           </div>
 
 
-          {/* Search Bar */}
-          <div x-data="{ search: '' }">
-            <div className="mb-2 w-full flex items-center justify-start space-x-2">
-              <svg className="w-5 h-8 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-              </svg>
-              <input
-                type="search"
-                onChange={(e) => { setSearch(e.target.value) }}
-                className="h-8 pr-2 py-1 w-full text-gray-800 focus:outline-none"
-                placeholder="Search Trainee by Id / Name" />
-            </div>
 
-            {/* Table */}
-            <div className="overflow-x-auto w-full scrollbar-hidden rounded-t-lg mt-2">
-              <table className="shadow-sm p-6 h-max w-full text-left mb-5 border-spacing-0" id="table-to-xls">
-                <thead className="bg-blue text-white p-3 h-16">
-                  {table.getHeaderGroups().map((headerGroup) => (
-                    <tr key={headerGroup.id}>
-                      {headerGroup.headers.map((header) => (
-                        <th key={header.id} className="capitalize px-4 py-2">
-                          {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                        </th>
-                      ))}
-                    </tr>
-                  ))}
-                </thead>
-                <tbody>
-                  {exams?.length ? (
-                    exams.map((row, i) => (
-                      <tr
-                        key={row.i}
-                        className={`
-                        ${i % 2 === 0 ? "bg-white" : "bg-white"} border-b border-gray-300 h-16 hover:bg-neutral-200
-                      `}
-                      >
-                        <td className="px-4 py-2">{i + 1}</td>
-                        <td className="px-4 py-2">{row.assessmentName}</td>
-                        <td className="px-4 py-2">{row.moduleName}</td>
-                        <td className="px-4 py-2">{row.date}</td>
-                        <td className="px-4 py-2">{row.totalMarks}</td>
-                        <td className="px-4 py-2">{row.assessmentType}</td>
-                        <td key="edit" className="px-4 py-2">
-                          <Link to={`/exams/${row._id}`}>
-                            <button className="bg-blue text-white font-bold py-2 px-4 rounded">
-                              Details
-                            </button>
-                          </Link>
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr className="text-center h-32">
-                      <td colSpan={12}>No Record Found!</td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
+
+          {/* Search Bar */}
+          <div className="mb-2 w-full flex items-center justify-start space-x-2">
+            <svg className="w-5 h-8 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+            </svg>
+            <input
+              type="search"
+              onChange={(e) => setSearch(e.target.value)}
+              className="h-8 pr-2 py-1 w-full text-gray-800 focus:outline-none"
+              placeholder="Search Exam by Name or Module"
+            />
           </div>
+
+          {/* Table */}
+          <div className="relative overflow-x-auto scrollbar-hidden shadow-md rounded-lg mt-2">
+            <table className="w-full text-left rtl:text-right text-gray-500 dark:text-gray-400">
+              <thead className="bg-[#0A1C3E] text-white">
+                <tr>
+                  <th scope="col" className="py-3 px-2 text-center">Sr. No.</th>
+                  <th scope="col" className="py-3 px-2 text-center">Assessment Name</th>
+                  <th scope="col" className="py-3 px-2 text-center">Module Name</th>
+                  <th scope="col" className="py-3 px-2 text-center">Date</th>
+                  <th scope="col" className="py-3 px-2 text-center">Total Marks</th>
+                  <th scope="col" className="py-3 px-2 text-center">Assessment Type</th>
+                  <th scope="col" className="py-3 px-2 text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredExams.length > 0 ? (
+                  filteredExams.map((row, i) => (
+                    <tr
+                      key={row._id}
+                      className={`${i % 2 === 0 ? "bg-white" : "bg-gray-50"} border-b border-gray-300 hover:bg-gray-200`}
+                    >
+                      <td className="py-2 px-2 text-center">{i + 1}</td>
+                      <td className="py-2 px-2 text-center">{row.assessmentName}</td>
+                      <td className="py-2 px-2 text-center">{row.moduleName}</td>
+                      <td className="py-2 px-2 text-center">{row.date}</td>
+                      <td className="py-2 px-2 text-center">{row.totalMarks}</td>
+                      <td className="py-2 px-2 text-center">{row.assessmentType}</td>
+                      <td className="py-2 px-2 text-center">
+                        <Link to={`/exams/${row._id}`}>
+                          <button className="bg-[#0A1C3E] text-white font-bold py-2 px-4 rounded">Details</button>
+                        </Link>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr className="text-center h-32">
+                    <td colSpan={7}>No Record Found!</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+
+        </div>
         </div>
       </div>
     </>
