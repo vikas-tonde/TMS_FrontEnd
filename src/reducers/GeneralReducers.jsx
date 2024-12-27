@@ -3,11 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     location: "Pune",
     batch: '',
-    trainees: []
+    trainees: [],
+    locations: [],
 };
 
 function fetchTraineesState(state, action) {
     state.trainees = action.payload;
+}
+
+function fetchLocations(state, action) {
+    state.locations = action.payload;
 }
 
 function activeLocation(state, action) {
@@ -25,9 +30,10 @@ export const allSlices = createSlice({
     reducers: {
         setActiveLocation: activeLocation,
         fetchCurrentBatch: currentBatch,
-        fetchTrainees: fetchTraineesState
+        fetchTrainees: fetchTraineesState,
+        getLocations : fetchLocations
     }
 })
 
-export const { setActiveLocation, fetchCurrentBatch, fetchTrainees } = allSlices.actions;
+export const { setActiveLocation, fetchCurrentBatch, fetchTrainees, getLocations } = allSlices.actions;
 export default allSlices.reducer;

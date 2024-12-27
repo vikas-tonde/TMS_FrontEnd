@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchTrainees } from "../reducers/GeneralReducers";
+import { fetchTrainees, getLocations } from "../reducers/GeneralReducers";
 import api from "../services/api";
 import StatisticsTabsMenu from "./StatisticsTabsMenu";
 
@@ -9,6 +9,17 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const activeLocation = useSelector(state => state.location);
   const activeBatch = useSelector(state => state.batch);
+  let locations = useSelector(state => state.locations);
+  useEffect(()=>{
+    (async () =>{
+      if(!locations?.length)
+      {
+        let response = await api.get("/api/admin/locations");
+        dispatch(getLocations(response.data.data));
+      }
+    })();
+  }, []);
+
   useEffect(() => {
     (async () => {
       let endpoint = `/${activeLocation}`;

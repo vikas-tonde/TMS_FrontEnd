@@ -6,6 +6,7 @@ import { setActiveLocation } from '../reducers/GeneralReducers';
 
 const StatisticsTabsMenu = () => {
   const activeLocation = useSelector(state => state.location);
+  const locations = useSelector(state => state.locations);
   const dispatch = useDispatch();
 
   const handleTabClick = (location) => {
@@ -24,10 +25,11 @@ const StatisticsTabsMenu = () => {
             value={activeLocation}
             onChange={(e) => handleTabClick(e.target.value)}
           >
-            <option value="Pune">Pune</option>
-            <option value="Chennai">Chennai</option>
-            <option value="Bangalore">Bangalore</option>
-            <option value="Germany">Germany</option>
+            {
+              locations.map((location, index)=>{
+                <option key={index} value={location}>{location}</option>
+              })
+            }
           </select>
         </div>
 
@@ -35,7 +37,7 @@ const StatisticsTabsMenu = () => {
         <div className="hidden sm:block">
           <div className="border-b border-gray-200">
             <nav className="-mb-px flex gap-6 justify-center">
-              {["Pune", "Chennai", "Bangalore", "Germany"].map(location => (
+              {locations.map(location => (
                 <button
                   key={location}
                   onClick={() => handleTabClick(location)}
