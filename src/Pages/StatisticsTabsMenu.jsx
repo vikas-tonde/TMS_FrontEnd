@@ -15,7 +15,7 @@ const StatisticsTabsMenu = () => {
 
   return (
     <>
-      <div className="flex-1 px-8 py-2 h-auto">
+      <div className="flex-1 px-6 pl-8 py-2 h-auto">
         {/* Mobile Dropdown */}
         <div className="sm:hidden">
           <label htmlFor="Tab" className="sr-only">Tab</label>
@@ -25,11 +25,12 @@ const StatisticsTabsMenu = () => {
             value={activeLocation}
             onChange={(e) => handleTabClick(e.target.value)}
           >
-            {
-              locations.map((location, index)=>{
-                <option key={index} value={location}>{location}</option>
-              })
-            }
+            {locations.map((location, index) => (
+              <option key={index} value={location}>
+                {location}
+              </option>
+            ))}
+
           </select>
         </div>
 
@@ -55,8 +56,8 @@ const StatisticsTabsMenu = () => {
       <div className="mt-6 mx-6">
         {activeLocation && (
           <div>
-            <Statistics/>
-            <Table/>
+            <Statistics />
+            <Table />
           </div>
         )}
       </div>

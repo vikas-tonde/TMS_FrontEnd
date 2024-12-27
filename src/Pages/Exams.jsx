@@ -132,52 +132,54 @@ function Exams() {
             </div>
 
             {/* Table */}
-            <table className="shadow-sm p-6 h-max w-full text-left mb-5 border-spacing-0" id="table-to-xls">
-              <thead className="bg-blue text-white p-3 h-16">
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <tr key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => (
-                      <th key={header.id} className="capitalize px-4 py-2">
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-              <tbody>
-                {exams?.length ? (
-                  exams.map((row, i) => (
-                    <tr
-                      key={row.i}
-                      className={`
+            <div className="overflow-x-auto w-full scrollbar-hidden rounded-t-lg mt-2">
+              <table className="shadow-sm p-6 h-max w-full text-left mb-5 border-spacing-0" id="table-to-xls">
+                <thead className="bg-blue text-white p-3 h-16">
+                  {table.getHeaderGroups().map((headerGroup) => (
+                    <tr key={headerGroup.id}>
+                      {headerGroup.headers.map((header) => (
+                        <th key={header.id} className="capitalize px-4 py-2">
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                        </th>
+                      ))}
+                    </tr>
+                  ))}
+                </thead>
+                <tbody>
+                  {exams?.length ? (
+                    exams.map((row, i) => (
+                      <tr
+                        key={row.i}
+                        className={`
                         ${i % 2 === 0 ? "bg-white" : "bg-white"} border-b border-gray-300 h-16 hover:bg-neutral-200
                       `}
-                    >
-                      <td className="px-4 py-2">{i + 1}</td>
-                      <td className="px-4 py-2">{row.assessmentName}</td>
-                      <td className="px-4 py-2">{row.moduleName}</td>
-                      <td className="px-4 py-2">{row.date}</td>
-                      <td className="px-4 py-2">{row.totalMarks}</td>
-                      <td className="px-4 py-2">{row.assessmentType}</td>
-                      <td key="edit" className="px-4 py-2">
-                        <Link to={`/exams/${row._id}`}>
-                          <button className="bg-blue text-white font-bold py-2 px-4 rounded">
-                            Details
-                          </button>
-                        </Link>
-                      </td>
+                      >
+                        <td className="px-4 py-2">{i + 1}</td>
+                        <td className="px-4 py-2">{row.assessmentName}</td>
+                        <td className="px-4 py-2">{row.moduleName}</td>
+                        <td className="px-4 py-2">{row.date}</td>
+                        <td className="px-4 py-2">{row.totalMarks}</td>
+                        <td className="px-4 py-2">{row.assessmentType}</td>
+                        <td key="edit" className="px-4 py-2">
+                          <Link to={`/exams/${row._id}`}>
+                            <button className="bg-blue text-white font-bold py-2 px-4 rounded">
+                              Details
+                            </button>
+                          </Link>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr className="text-center h-32">
+                      <td colSpan={12}>No Record Found!</td>
                     </tr>
-                  ))
-                ) : (
-                  <tr className="text-center h-32">
-                    <td colSpan={12}>No Record Found!</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

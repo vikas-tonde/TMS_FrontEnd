@@ -2,7 +2,6 @@ import { createColumnHelper, flexRender, getCoreRowModel, getFilteredRowModel, g
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import api from "../services/api";
 
 const Table = () => {
   const [trainees, setTrainees] = useState([]);
@@ -39,8 +38,8 @@ const Table = () => {
         const slug = empId;
         return <Link to={`/traineeInfo/${slug}`}>Edit</Link>;
       },
-      header: "",
-    }),
+      header: "Action",
+    })
   ];
 
   const [globalFilter] = useState("");
@@ -86,7 +85,7 @@ const Table = () => {
 
         </div>
 
-        <div className="overflow-x-auto w-full scrollbar-hidden">
+        <div className="overflow-x-auto w-full scrollbar-hidden rounded-t-lg mt-2">
         <table className="shadow-sm p-6 h-max w-full text-left mb-5 border-spacing-0" id="table-to-xls">
           <thead className="bg-[#0A1C3E] text-white p-3 h-16 ">
             {table.getHeaderGroups().map((headerGroup) => (

@@ -2,8 +2,6 @@ import { createColumnHelper, flexRender, getCoreRowModel, getFilteredRowModel, g
 import { useEffect, useState } from "react";
 import { GiSightDisabled } from "react-icons/gi";
 import { MdEdit } from "react-icons/md";
-import { useFormik } from 'formik';
-import { object, string } from 'yup';
 import { useLoaderData } from "react-router";
 import { Link } from "react-router-dom";
 import api from "../services/api";
@@ -75,17 +73,6 @@ const TraineeTable = () => {
     getPaginationRowModel: getPaginationRowModel(),
   });
 
-  const examFormSchema = object().shape({
-    batch: string().required("batch is required")
-  });
-
-  const { handleBlur, touched } = useFormik({
-    initialValues: {
-      batch: ''
-    },
-    validationSchema: examFormSchema
-  });
-
   return (
     <>
       <div className="flex-1 bg-gray-500 bg-opacity-40 pb-6 backdrop-blur-md min-h-screen">
@@ -108,7 +95,6 @@ const TraineeTable = () => {
                   autoComplete="off"
                   value={selectedBatch}
                   onChange={(e) => setSelectedBatch(e.target.value)}
-                  onBlur={handleBlur}
                   className="block w-full h-9 py-2 px-3 bg-white rounded-md border-0 text-gray-800 ring-1 ring-inset ring-gray-400"
                 >
                   <option value="" disabled>Select the batch</option>
@@ -135,62 +121,61 @@ const TraineeTable = () => {
             </div>
 
             {/* Table with horizontal scrolling */}
-            <div className="overflow-x-auto w-full scrollbar-hidden">
-            <table className="shadow-sm p-6 h-max w-full text-left mb-5 border-spacing-0" id="table-to-xls">
-              <thead className="bg-blue text-white p-3 h-16 ">
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <tr key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => (
-                      <th key={header.id} className="capitalize px-4 py-2 ">
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-              <tbody>
-                {trainees?.length ? (
-                  trainees.map((row, i) => (
-                    <tr
-                      key={row.i}
-                      className={`${
-                        i % 2 === 0 ? "bg-white" : "bg-white"
-                      } border-b border-gray-300 h-16 hover:bg-neutral-200 `}
-                    >
-                      <td className="px-4 py-2 ">
-                        {i + 1} {/* Added serial number for row */}
-                      </td>
-                      <td className="px-4 py-2 ">
-                        {row.employeeId}
-                      </td>
-                      <td className="px-4 py-2 ">
-                        {row.firstName} {row.lastName}
-                      </td>
-                      <td className="px-4 py-2 ">
-                        {row.email}
-                      </td>
-                      <td className="px-4 py-2 flex space-x-2">
-                        <button title="disable" className="bg-blue text-white text-lg font-extrabold py-2 px-4 rounded flex items-center justify-center h-10">
-                          <GiSightDisabled />
-                        </button>
-                        <Link className="bg-blue text-white font-bold py-2 px-4 rounded flex items-center justify-center w-10 h-10" to={`/table/${row.employeeId}`}>
-                          <button className="">
-                            <MdEdit />
-                          </button>
-                        </Link>
-                      </td>
+            <div className="overflow-x-auto w-full scrollbar-hidden rounded-t-lg mt-2">
+              <table className="shadow-sm p-6 h-max w-full text-left mb-5 border-spacing-0" id="table-to-xls">
+                <thead className="bg-blue text-white p-3 h-16 ">
+                  {table.getHeaderGroups().map((headerGroup) => (
+                    <tr key={headerGroup.id}>
+                      {headerGroup.headers.map((header) => (
+                        <th key={header.id} className="capitalize px-4 py-2 ">
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                        </th>
+                      ))}
                     </tr>
-                  ))
-                ) : (
-                  <tr className="text-center h-32">
-                    <td colSpan={5}>No Record Found!</td> {/* Updated colSpan */}
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  ))}
+                </thead>
+                <tbody>
+                  {trainees?.length ? (
+                    trainees.map((row, i) => (
+                      <tr
+                        key={row.i}
+                        className={`${i % 2 === 0 ? "bg-white" : "bg-white"
+                          } border-b border-gray-300 h-16 hover:bg-neutral-200 `}
+                      >
+                        <td className="px-4 py-2 ">
+                          {i + 1} {/* Added serial number for row */}
+                        </td>
+                        <td className="px-4 py-2 ">
+                          {row.employeeId}
+                        </td>
+                        <td className="px-4 py-2 ">
+                          {row.firstName} {row.lastName}
+                        </td>
+                        <td className="px-4 py-2 ">
+                          {row.email}
+                        </td>
+                        <td className="px-4 py-2 flex space-x-2">
+                          <button title="disable" className="bg-blue text-white text-lg font-extrabold py-2 px-4 rounded flex items-center justify-center h-10">
+                            <GiSightDisabled />
+                          </button>
+                          <Link className="bg-blue text-white font-bold py-2 px-4 rounded flex items-center justify-center w-10 h-10" to={`/table/${row.employeeId}`}>
+                            <button className="">
+                              <MdEdit />
+                            </button>
+                          </Link>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr className="text-center h-32">
+                      <td colSpan={5}>No Record Found!</td> {/* Updated colSpan */}
+                    </tr>
+                  )}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
