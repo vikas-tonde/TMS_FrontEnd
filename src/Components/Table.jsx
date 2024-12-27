@@ -86,6 +86,7 @@ const Table = () => {
 
         </div>
 
+        <div className="overflow-x-auto w-full scrollbar-hidden">
         <table className="shadow-sm p-6 h-max w-full text-left mb-5 border-spacing-0" id="table-to-xls">
           <thead className="bg-[#0A1C3E] text-white p-3 h-16 ">
             {table.getHeaderGroups().map((headerGroup) => (
@@ -134,6 +135,7 @@ const Table = () => {
             )}
           </tbody>
         </table>
+        </div>
       </div>
     </>
   );

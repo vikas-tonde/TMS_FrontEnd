@@ -2,9 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    font-family: Serif Sans-serif;
-    overflow-x: hidden;
-    /* background-color: #fff; */
-    /* background-color: #e8f6ff; */
+body {
+  font-family: Serif Sans-serif;
+  overflow-x: hidden;
+  /* background-color: #fff; */
+  /* background-color: #e8f6ff; */
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and newer versions of Edge */
+}
+
+.scrollbar-hidden {
+  -ms-overflow-style: none; /* For Internet Explorer and older versions of Edge */
+  scrollbar-width: none; /* For Firefox */
 }
