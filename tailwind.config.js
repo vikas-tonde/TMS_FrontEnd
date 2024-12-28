@@ -60,10 +60,4 @@ export default {
   		}
   	}
   },
-  plugins: [react(),require("tailwindcss-animate")],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
-  },
 };
