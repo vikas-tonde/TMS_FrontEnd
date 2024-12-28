@@ -12,52 +12,7 @@ const Table = () => {
     setTrainees(traineesSelected);
   }, [activeLocation, traineesSelected]);
 
-  const columnHelper = createColumnHelper();
-
-  const columns = [
-    columnHelper.accessor("", {
-      id: "srno",
-      cell: (info) => <span>{info.row.index + 1}</span>,
-      header: "Sr.No.",
-    }),
-    columnHelper.accessor("employeeId", {
-      cell: (info) => <span>{info.getValue()}</span>,
-      header: "Employee ID",
-    }),
-    columnHelper.accessor("name", {
-      cell: (info) => <span>{info.getValue()}</span>,
-      header: " Name",
-    }),
-    columnHelper.accessor("avgMarks", {
-      cell: (info) => <span>{info.getValue()}</span>,
-      header: "Average Marks",
-    }),
-    columnHelper.accessor("", {
-      id: "empId",
-      cell: (info) => {
-        const empId = info.row.original.employeeId;
-        const slug = empId;
-        return <Link to={`/traineeInfo/${slug}`}>Edit</Link>;
-      },
-      header: "Action",
-    })
-  ];
-
-  const [globalFilter] = useState("");
-
   const [search, setsearch] = useState("");
-
-  const table = useReactTable({
-    data: trainees,
-    columns,
-    state: {
-      globalFilter,
-    },
-    getFilteredRowModel: getFilteredRowModel(),
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-  });
-
 
   return (
     <>
