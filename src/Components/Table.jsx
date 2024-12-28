@@ -2,6 +2,7 @@ import { createColumnHelper, flexRender, getCoreRowModel, getFilteredRowModel, g
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
 
 const Table = () => {
   const [trainees, setTrainees] = useState([]);
@@ -131,9 +132,9 @@ const Table = () => {
                       <td className="py-2 px-2 text-center">{row.Exams[0]?.averageMarks}</td>
                       <td className="py-2 px-2 text-center">
                         <Link to={`/dashboard/${row.employeeId}`}>
-                          <button className="bg-[#0A1C3E] text-white font-bold py-2 px-4 rounded">
+                          <Button className="">
                             View
-                          </button>
+                          </Button>
                         </Link>
                       </td>
                     </tr>
