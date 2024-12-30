@@ -28,6 +28,7 @@ const Dashboard = () => {
       }
       try {
         const response = await api.get(`/api/admin/trainees/${endpoint}`);
+        console.log(response.data.data);
         dispatch(fetchTrainees(response.data.data));
       } catch (error) {
         console.error("Error fetching trainees:", error);
