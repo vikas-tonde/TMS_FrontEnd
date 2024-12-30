@@ -10,7 +10,7 @@ const Homepage = () => {
       return (
         <>
           <div
-            className="w-full h-screen bg-[url('assets/Homepage.png')] bg-cover bg-center mix-blend-overlay flex justify-end items-center mx-30">
+            className="w-full h-screen bg-[url('assets/Homepage.png')] bg-cover bg-center flex justify-end items-center mx-30">
 
             <div className="flex top-4 right-4 m-2">
               <div className="flex flex-col justify-center items-center self-center mr-4 ">

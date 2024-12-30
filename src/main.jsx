@@ -28,6 +28,7 @@ import './index.css';
 import { AuthProvider, RequireAuth } from './services/auth';
 import { getBatch, getBatches, getExam, getModules, getTraineeDetails } from './services/loaderFunctions';
 import { MyStore } from './store/Store.js';
+import EditUserInfo from './Pages/EditUserInfo';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -100,7 +101,7 @@ const router = createBrowserRouter(
           } loader={getBatch} />
           <Route path="/graph" element={<Analytics />} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/table/:empId" element={<TraineeInfo />} />
+          <Route path="/table/:empId" element={<EditUserInfo />} />
         </Route>
 
         <Route element={<RequireAuth> <TraineeLayout /> </RequireAuth>}>
