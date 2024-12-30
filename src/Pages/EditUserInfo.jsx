@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import { useLoaderData } from "react-router";
 import { MdEdit, MdOutlineSave, MdOutlineSmartButton } from "react-icons/md";
 import api from "../services/api";
-import { useDispatch, useSelector } from 'react-redux';
-import { setActiveLocation } from '../reducers/GeneralReducers';
+import { useSelector } from 'react-redux';
 
 const EditUserInfo = () => {
     const loaderData = useLoaderData();
@@ -12,12 +11,7 @@ const EditUserInfo = () => {
     const [isEditing, setIsEditing] = useState(false);
     
     // Access location state from Redux
-    const { activeLocation, locations } = useSelector(state => state.locations);
-
-    const dispatch = useDispatch();
-    const handleTabClick = (location) => {
-        dispatch(setActiveLocation(location));
-    };
+    const locations = useSelector(state => state.locations);
 
     useEffect(() => {
         setTrainee({ ...loaderData });
@@ -160,15 +154,15 @@ const EditUserInfo = () => {
                             <select
                                 id="location"
                                 className="w-full sm:w-2/3 rounded-md border-2 border-gray-250 text-lg"
-                                value={activeLocation}
+                                // value={activeLocation}
                                 onChange={(e) => handleTabClick(e.target.value)} // Update the location in Redux
                                 disabled={!isEditing}
                             >
-                                {locations?.map((location, index) => (
+                                {locations?.map((location, index) =>  {return(
                                     <option key={index} value={location}>
                                         {location}
                                     </option>
-                                ))}
+                                )})}
                             </select>
                         </div>
 
