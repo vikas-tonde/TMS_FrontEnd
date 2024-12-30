@@ -9,9 +9,13 @@ const EditUserInfo = () => {
     const loaderData = useLoaderData();
     const [trainee, setTrainee] = useState({});
     const [isEditing, setIsEditing] = useState(false);
+    const [locations, setLocations] = useState([]);
     
-    // Access location state from Redux
-    const locations = useSelector(state => state.locations);
+    const storedLocations = useSelector(state => state.locations);
+    
+    useEffect(()=>{
+        setLocations(storedLocations);
+    },[storedLocations]);
 
     useEffect(() => {
         setTrainee({ ...loaderData });
