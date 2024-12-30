@@ -160,7 +160,7 @@ const EditUserInfo = () => {
                             {/* Location dropdown */}
                             <select
                                 id="location"
-                                className="shadow appearance-none block bg-white rounded-md w-full sm:w-2/3 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
+                                className="shadow appearance-none block bg-white rounded-md w-full sm:w-2/3 h-9 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
                                 // value={activeLocation}
                                 onChange={(e) => handleTabClick(e.target.value)}
                                 disabled={!isEditing}
