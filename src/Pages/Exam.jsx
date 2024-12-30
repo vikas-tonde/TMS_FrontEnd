@@ -2,12 +2,15 @@ import { createColumnHelper, flexRender, getCoreRowModel, getFilteredRowModel, g
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLoaderData } from "react-router";
+
 function Exam() {
   const details = useLoaderData();
   const [candidates, setCandidates] = useState([]);
+  const [search, setSearch] = useState("");
+
   useEffect(() => {
     setCandidates(details?.candidates);
-  }, []);
+  }, [details]);
 
   const columnHelper = createColumnHelper();
 
@@ -29,12 +32,9 @@ function Exam() {
       cell: (info) => <span>{info.getValue()}</span>,
       header: "Average Marks",
     }),
-
   ];
 
   const [globalFilter] = useState("");
-
-  const [search, setsearch] = useState("");
 
   const table = useReactTable({
     data: candidates,
@@ -59,72 +59,72 @@ function Exam() {
 
         {/* StatisticsTabsMenu without 3D effect */}
         <div className="mt-4 mx-6 shadow-xl rounded-lg p-3 bg-white">
-          <h4 className="text-2xl font-semibold text-center py-2 text-[#0A1C3E] dark:text-white border-b border-gray-200 dark:border-gray-700">Candidates of Assessment - {details.assessmentName}</h4>
-          <div className="flex justify-center">
-            <div className='px-3 py-2'>Module: {details.moduleName}</div>
-            <div className='px-3 py-2'>Total Marks: {details.totalMarks}</div>
-            <div className='px-3 py-2'>Date: {details.date}</div>
+          <h4 className="text-2xl font-semibold text-center py-2 text-[#0A1C3E] dark:text-white border-b border-gray-200 dark:border-gray-700">
+            Candidates of Assessment - {details.assessmentName}
+          </h4>
+          <div className="flex justify-center mb-4 ">
+            <div className="px-3 py-2">Module: {details.moduleName}</div>
+            <div className="px-3 py-2">Total Marks: {details.totalMarks}</div>
+            <div className="px-3 py-2">Date: {details.date}</div>
           </div>
 
-          <div x-data="{ search: '' }">
-            <div class="mb-2 w-full flex items-center justify-start space-x-2">
-              <svg class="w-5 h-8 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-              </svg>
-              <input
-                type="search"
-                onChange={(e) => { setsearch(e.target.value) }}
-                class="h-8 pr-2 py-1 w-full text-gray-800 focus:outline-none"
-                placeholder="Search Trainee by Id / Name" />
-            </div>
+          <div className="mb-2 w-full flex items-center justify-start space-x-2">
+            <svg className="w-5 h-8 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+            </svg>
+            <input
+              type="search"
+              onChange={(e) => setSearch(e.target.value)}
+              className="h-8 pr-2 py-1 w-full text-gray-800 focus:outline-none"
+              placeholder="Search Trainee by Id / Name"
+            />
           </div>
 
-          <table className="shadow-sm p-6 h-max w-full text-left mb-5 border-spacing-0" id="table-to-xls">
-            <thead className="bg-[#0A1C3E] text-white p-3 h-16 ">
-              {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <th key={header.id} className="capitalize px-4 py-2 ">
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody>
-              {candidates.length ? (
-                candidates.filter((item) => {
-                  let searchValue = search.toLowerCase();
-                  let name = item.firstName + " " + item.lastName;
-                  return search.toLowerCase() === '' ? item : item.employeeId.toLowerCase().includes(searchValue) || name.toLowerCase().includes(searchValue)
-                }).map((row, i) => (
-                  <tr
-                    key={i}
-                    className={`
-                  ${i % 2 === 0 ? "bg-white" : "bg-white"} border-b border-gray-300 h-16 hover:bg-gray-200 
-                  `}
-                  >
-                    <td className="px-4 py-2 ">{i + 1}</td>
-                    <td className="px-4 py-2 ">{row.employeeId}</td>
-                    <td className="px-4 py-2 ">{row.firstName + " " + row.lastName}</td>
-                    <td className="px-4 py-2 ">{row.score}</td>
+          <div className="overflow-x-auto w-full rounded-lg mt-2">
+            <table className="shadow-sm p-6 h-max w-full text-left mb-5 border-spacing-0" id="table-to-xls">
+              <thead className="bg-[#0A1C3E] text-white p-3 h-16">
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <tr key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
+                      <th key={header.id} className="capitalize text-center px-4">
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                      </th>
+                    ))}
                   </tr>
-                ))
-              ) : (
-                <tr className="text-center h-32">
-                  <td colSpan={12}>No Record Found!</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-
+                ))}
+              </thead>
+              <tbody>
+                {candidates.length ? (
+                  candidates.filter((item) => {
+                    let searchValue = search.toLowerCase();
+                    let name = item.firstName + " " + item.lastName;
+                    return search.toLowerCase() === '' ? item : item.employeeId.toLowerCase().includes(searchValue) || name.toLowerCase().includes(searchValue)
+                  }).map((row, i) => (
+                    <tr
+                      key={i}
+                      className={`${i % 2 === 0 ? "bg-white" : "bg-white"} border-b border-gray-300 h-16 hover:bg-gray-200`}
+                    >
+                      <td className="px-4 text-gray-500 text-center">{i + 1}</td>
+                      <td className="px-4 text-gray-500 text-center">{row.employeeId}</td>
+                      <td className="px-4 text-gray-500 text-center">{row.firstName + " " + row.lastName}</td>
+                      <td className="px-4 text-gray-500 text-center">{row.score}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr className="text-center h-32">
+                    <td colSpan={12}>No Record Found!</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Exam
+export default Exam;

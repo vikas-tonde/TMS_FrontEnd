@@ -215,7 +215,6 @@ function BulkEntryModuleForm() {
               <div className="flex items-center justify-center">
                 <button
                   type="submit"
-                  // ref={submitButtonRef}
                   disabled={!isValid}
                   className="text-white bg-[#0A1C3E] hover:text-[#0A1C3E] border border-white hover:bg-white hover:border-[#0A1C3E] focus:ring-4 focus:outline-none focus:ring-[#0A1C3E]-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 >

@@ -1,6 +1,6 @@
 import { createColumnHelper, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
-import { GiSightDisabled } from "react-icons/gi";
+import { IoMdEyeOff, IoMdEye } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
 import { useLoaderData } from "react-router";
 import { Link } from "react-router-dom";
@@ -12,6 +12,7 @@ const TraineeTable = () => {
   const [loading, setLoading] = useState(true);
   const [selectedBatch, setSelectedBatch] = useState("");
   const [search, setSearch] = useState("");
+  const [disabledTrainees, setDisabledTrainees] = useState(new Set());
 
   useEffect(() => {
     const fetchTrainees = async () => {
@@ -28,6 +29,18 @@ const TraineeTable = () => {
     };
     fetchTrainees();
   }, [selectedBatch]);
+
+  const handleToggleStatus = (employeeId) => {
+    setDisabledTrainees((prev) => {
+      const newDisabled = new Set(prev);
+      if (newDisabled.has(employeeId)) {
+        newDisabled.delete(employeeId);
+      } else {
+        newDisabled.add(employeeId);
+      }
+      return newDisabled;
+    });
+  };
 
   const columnHelper = createColumnHelper();
 
@@ -168,10 +181,11 @@ const TraineeTable = () => {
                       <td className="px-4 py-2">{row.email}</td>
                       <td className="px-4 py-2 flex space-x-2">
                         <button
-                          title="disable"
+                          title={disabledTrainees.has(row.employeeId) ? "Enable" : "Disable"}
                           className="bg-blue text-white text-lg font-extrabold py-2 px-4 rounded flex items-center justify-center h-10"
+                          onClick={() => handleToggleStatus(row.employeeId)}
                         >
-                          <GiSightDisabled />
+                          {disabledTrainees.has(row.employeeId) ? <IoMdEye /> : <IoMdEyeOff />}
                         </button>
                         <Link
                           className="bg-blue text-white font-bold py-2 px-4 rounded flex items-center justify-center w-10 h-10"

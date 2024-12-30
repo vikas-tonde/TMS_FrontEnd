@@ -111,7 +111,7 @@ const Users = () => {
         <div className="mt-4 mx-6 shadow-xl rounded-lg bg-white">
           <div className="flex flex-col items-center justify-center p-6 w-full md:flex-row">
             <div className="mx-10">
-              <div className="bg-white border rounded-md shadow-md p-4 mb-4 w-full max-w-xs md:max-w-sm">
+              <div className="bg-white border rounded-md shadow-md p-4 mb-4 sm:mb-14 md:mb-14 w-full max-w-xs md:max-w-sm">
                 <div className="flex flex-col items-center">
                   <img
                     src={imageUrl}

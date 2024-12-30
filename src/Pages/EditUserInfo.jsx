@@ -4,18 +4,19 @@ import { useLoaderData } from "react-router";
 import { MdEdit, MdOutlineSave, MdOutlineSmartButton } from "react-icons/md";
 import api from "../services/api";
 import { useSelector } from 'react-redux';
+import { toast } from "react-toastify";
 
 const EditUserInfo = () => {
     const loaderData = useLoaderData();
     const [trainee, setTrainee] = useState({});
     const [isEditing, setIsEditing] = useState(false);
     const [locations, setLocations] = useState([]);
-    
+
     const storedLocations = useSelector(state => state.locations);
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         setLocations(storedLocations);
-    },[storedLocations]);
+    }, [storedLocations]);
 
     useEffect(() => {
         setTrainee({ ...loaderData });
@@ -43,9 +44,11 @@ const EditUserInfo = () => {
             api.put("/api/admin/users/user", trainee)
                 .then((response) => {
                     setTrainee(response.data.data);
+                    toast.success("Successfully saved the changes.");
                 })
                 .catch((error) => {
                     console.error("Error saving trainee data:", error);
+                    toast.error("Error saving the changes.");
                 });
         }
         setIsEditing(!isEditing);
@@ -83,7 +86,7 @@ const EditUserInfo = () => {
                                 placeholder="Trainee Name"
                                 className="shadow appearance-none block bg-white rounded-md w-full sm:w-2/3 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
                                 disabled={!isEditing}
-                                value={trainee?.firstName}
+                                value={trainee?.firstName || ""}
                                 onChange={handleChange}
                             />
                         </div>
@@ -102,7 +105,7 @@ const EditUserInfo = () => {
                                 placeholder="Trainee Last Name"
                                 className="shadow appearance-none block bg-white rounded-md w-full sm:w-2/3 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
                                 disabled={!isEditing}
-                                value={trainee?.lastName}
+                                value={trainee?.lastName || ""}
                                 onChange={handleChange}
                             />
                         </div>
@@ -121,7 +124,7 @@ const EditUserInfo = () => {
                                 placeholder="Email ID"
                                 className="shadow appearance-none block bg-white rounded-md w-full sm:w-2/3 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
                                 disabled={!isEditing}
-                                value={trainee?.email}
+                                value={trainee?.email || ""}
                                 onChange={handleChange}
                             />
                         </div>
@@ -140,7 +143,7 @@ const EditUserInfo = () => {
                                 placeholder="Role"
                                 className="shadow appearance-none block bg-white rounded-md w-full sm:w-2/3 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
                                 disabled={!isEditing}
-                                value={trainee?.role}
+                                value={trainee?.role || ""}
                                 onChange={handleChange}
                             />
                         </div>
@@ -157,9 +160,9 @@ const EditUserInfo = () => {
                             {/* Location dropdown */}
                             <select
                                 id="location"
-                                className="w-full sm:w-2/3 rounded-md border-2 border-gray-250 text-lg"
+                                className="shadow appearance-none block bg-white rounded-md w-full sm:w-2/3 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
                                 // value={activeLocation}
-                                onChange={(e) => handleTabClick(e.target.value)} // Update the location in Redux
+                                onChange={(e) => handleTabClick(e.target.value)}
                                 disabled={!isEditing}
                             >
                                 {locations?.map((location, index) =>  {return(
