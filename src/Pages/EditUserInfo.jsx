@@ -34,7 +34,7 @@ const EditUserInfo = () => {
         } else {
             setTrainee({
                 ...trainee,
-                [id]: value,=
+                [id]: value,
             });
         }
     };
