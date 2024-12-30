@@ -95,51 +95,45 @@ function Exams() {
 
         {/* StatisticsTabsMenu without 3D effect */}
         <div className="mt-4 mx-6 shadow-xl rounded-lg p-3 bg-white">
-        <div className="mx-auto max-w-full md:p-3 2xl:p-6 flex justify-center flex-col items-center">
+          <div className="mx-auto max-w-full md:p-3 2xl:p-6 flex justify-center flex-col items-center">
 
-
-
-
-
-          <div className="flex flex-col sm:flex-row items-start justify-between mb-4">
-            <label htmlFor="batch" className="text-gray-700 text-xl font-semibold mb-1 sm:mr-4">
-              Select Batch
-            </label>
-            <div className="w-full sm:w-96">
-              <select
-                id="batch"
-                name="batch"
-                autoComplete="off"
-                value={selectedBatch}
-                onChange={(e) => setSelectedBatch(e.target.value)}
-                className="block w-full h-9 py-2 px-3 bg-white rounded-md border-0 text-gray-800 ring-1 ring-inset ring-gray-400"
-              >
-                <option value="" disabled>
-                  Select the batch
-                </option>
-                {batches.map((batch) => (
-                  <option key={batch._id} value={batch._id}>
-                    {batch.batchName}
+            <div className="flex flex-col sm:flex-row items-start justify-between mb-4">
+              <label htmlFor="batch" className="text-gray-700 text-xl font-semibold mb-1 sm:mr-4">
+                Select Batch
+              </label>
+              <div className="w-full sm:w-96">
+                <select
+                  id="batch"
+                  name="batch"
+                  autoComplete="off"
+                  value={selectedBatch}
+                  onChange={(e) => setSelectedBatch(e.target.value)}
+                  className="block w-full h-9 py-2 px-3 bg-white rounded-md border-0 text-gray-800 ring-1 ring-inset ring-gray-400"
+                >
+                  <option value="" disabled>
+                    Select the batch
                   </option>
-                ))}
-              </select>
+                  {batches.map((batch) => (
+                    <option key={batch._id} value={batch._id}>
+                      {batch.batchName}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-          </div>
 
-
-
-
-          {/* Search Bar */}
-          <div className="mb-2 w-full flex items-center justify-start space-x-2">
-            <svg className="w-5 h-8 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-            </svg>
-            <input
-              type="search"
-              onChange={(e) => setSearch(e.target.value)}
-              className="h-8 pr-2 py-1 w-full text-gray-800 focus:outline-none"
-              placeholder="Search Exam by Name or Module"
-            />
+            {/* Search Bar */}
+            <div className="mb-2 w-full flex items-center justify-start space-x-2">
+              <svg className="w-5 h-8 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+              </svg>
+              <input
+                type="search"
+                onChange={(e) => setSearch(e.target.value)}
+                className="h-8 pr-2 py-1 w-full text-gray-800 focus:outline-none"
+                placeholder="Search Exam by Name or Module"
+              />
+            </div>
           </div>
 
           {/* Table */}
@@ -184,8 +178,6 @@ function Exams() {
               </tbody>
             </table>
           </div>
-
-        </div>
         </div>
       </div>
     </>
