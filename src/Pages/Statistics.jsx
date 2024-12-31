@@ -11,26 +11,7 @@ const Statistics = () => {
   const activeLocation = useSelector(state => state.location);
   const [entries, setEntries] = useState([]);
   const {user } = useAuth();
-  // let getToppers = () => {
-  //   let currentRank = 1;
-  //   let previousMarks = traineesSelected[0]?.Exams[0].averageMarks;
-  //   let topStudents = [traineesSelected[0]];
-  //   let tieChecker = 0;
 
-  //   for (let i = 1; i < traineesSelected.length; i++) {
-  //     if (traineesSelected[i]?.Exams[0].averageMarks !== previousMarks) {
-  //       currentRank = currentRank + 1;
-  //     }
-
-  //     topStudents.push(traineesSelected[i]);
-  //     if (currentRank >= 5 && traineesSelected[i]?.Exams[0].averageMarks !== previousMarks) {
-  //       break;
-  //     }
-  //     previousMarks = traineesSelected[i].Exams[0].averageMarks;
-  //   }
-  //   console.log(topStudents);
-  //   setEntries(topStudents);
-  // }
   let traineesSelected = useSelector(state => state.trainees) || [];
   useEffect(() => {
     if (Array.isArray(traineesSelected)) {
@@ -89,7 +70,7 @@ const Statistics = () => {
                     </div>
                   ))}
                 </Slider>
-                : <p className="text-center h-32">No Record Found!</p>
+                : <p className="text-center mt-6 h-32">No Record Found!</p>
             }
           </div>
 

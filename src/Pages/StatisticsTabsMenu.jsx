@@ -35,7 +35,7 @@ const StatisticsTabsMenu = () => {
         </div>
 
         {/* Desktop Tab Buttons */}
-        <div className="hidden sm:block">
+        <div className="hidden overflow-x-auto scrollbar-hidden sm:block">
           <div className="border-b border-gray-200">
             <nav className="-mb-px flex gap-6 justify-center">
               {locations.map(location => (
