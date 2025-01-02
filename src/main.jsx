@@ -87,8 +87,6 @@ const router = createBrowserRouter(
               <TraineeTable />
             </Suspense>
           } loader={getBatches} />
-
-
           <Route path="/batch" element={
             <Suspense fallback={<div>Loading batch details...</div>}>
               <BatchTable />
