@@ -59,12 +59,9 @@ const Login = () => {
                 />
                 {errors.password && touched.password && <p className="text-[#dc2626]">{errors.password}</p>}
               </div>
-              <button type='submit' className=" w-full mt-8 px-12 py-3 bg-blue text-xl text-white font-semibold drop-shadow-lg rounded-full hover:bg-blue-600">
+              <button type='submit' className=" w-full my-8 px-12 py-3 bg-blue text-xl text-white font-semibold drop-shadow-lg rounded-full hover:bg-blue-600">
                 Login
               </button>
-              <div className="mt-4 text-center">
-                <Link to="/" className="text-blue-500 hover:underline">Forgot Password?</Link>
-              </div>
             </form>
           </div>
         </div>
