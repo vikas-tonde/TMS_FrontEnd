@@ -109,13 +109,13 @@ const TraineeExamData = () => {
         {/* Form Wrapper */}
         <div className="mt-4 mx-6 shadow-xl rounded-lg p-3 bg-white">
           <div className="w-full flex justify-center">
-            <form className="w-full max-w-3xl" onSubmit={handleSubmit}>
+            <form className="w-full max-w-2xl" onSubmit={handleSubmit}>
               <div className="space-y-6">
                 {/* Batch Selection */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
                   <label
                     htmlFor="batch"
-                    className="block text-xl font-medium text-gray-900 sm:w-1/3"
+                    className="block text-xl font-bold text-gray-900 sm:w-1/3 mb-2 sm:mb-0"
                   >
                     Select batch
                   </label>
@@ -126,7 +126,7 @@ const TraineeExamData = () => {
                       value={values.batch}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className={`block w-full rounded-md border-2 py-2 px-4 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 ${touched.batch && errors.batch ? 'border-red-500' : ''}`}
+                      className={`block w-full appearance-none rounded-md border-2 py-2 px-4 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 ${touched.batch && errors.batch ? 'border-red-500' : ''}`}
                     >
                       <option value="" disabled>Select the batch</option>
                       {batches.map(batch => (
@@ -143,7 +143,7 @@ const TraineeExamData = () => {
                 <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
                   <label
                     htmlFor="employeeId"
-                    className="block text-xl font-medium text-gray-900 sm:w-1/3"
+                    className="block text-xl font-bold text-gray-900 sm:w-1/3 mb-2 sm:mb-0"
                   >
                     Employee Id
                   </label>
@@ -154,7 +154,7 @@ const TraineeExamData = () => {
                       value={values.employeeId}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className={`block w-full rounded-md border-2 py-2 px-4 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 ${touched.employeeId && errors.employeeId ? 'border-red-500' : ''}`}
+                      className={`block w-full appearance-none rounded-md border-2 py-2 px-4 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 ${touched.employeeId && errors.employeeId ? 'border-red-500' : ''}`}
                     >
                       <option value="" disabled>Select the employee Id</option>
                       {trainees.length > 0 && trainees.map(trainee => (
@@ -173,7 +173,7 @@ const TraineeExamData = () => {
                 <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
                   <label
                     htmlFor="assessmentType"
-                    className="block text-xl font-medium text-gray-900 sm:w-1/3"
+                    className="block text-xl font-bold text-gray-900 sm:w-1/3 mb-2 sm:mb-0"
                   >
                     Assessment Type
                   </label>
@@ -184,7 +184,7 @@ const TraineeExamData = () => {
                       value={values.assessmentType}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className={`block w-full rounded-md border-2 py-2 px-4 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 ${touched.assessmentType && errors.assessmentType ? 'border-red-500' : ''}`}
+                      className={`block w-full appearance-none rounded-md border-2 py-2 px-4 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 ${touched.assessmentType && errors.assessmentType ? 'border-red-500' : ''}`}
                     >
                       <option value="" disabled>Select an assessment type</option>
                       <option value="Quiz">Quiz</option>
@@ -201,7 +201,7 @@ const TraineeExamData = () => {
                 <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
                   <label
                     htmlFor="assessmentId"
-                    className="block text-xl font-medium text-gray-900 sm:w-1/3"
+                    className="block text-xl font-bold text-gray-900 sm:w-1/3 mb-2 sm:mb-0"
                   >
                     Assessment Name
                   </label>
@@ -212,7 +212,7 @@ const TraineeExamData = () => {
                       value={values.assessmentId}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className={`block w-full rounded-md border-2 py-2 px-4 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 ${touched.assessmentId && errors.assessmentId ? 'border-red-500' : ''}`}
+                      className={`block w-full appearance-none rounded-md border-2 py-2 px-4 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 ${touched.assessmentId && errors.assessmentId ? 'border-red-500' : ''}`}
                     >
                       <option value="" disabled>Select an assessment</option>
                       {assessments.length > 0 && assessments.map(assessment => (
@@ -231,7 +231,7 @@ const TraineeExamData = () => {
                 <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
                   <label
                     htmlFor="obtainedMarks"
-                    className="block text-xl font-medium text-gray-900 sm:w-1/3"
+                    className="block text-xl font-bold text-gray-900 sm:w-1/3 mb-2 sm:mb-0"
                   >
                     Obtained Marks
                   </label>
@@ -244,7 +244,7 @@ const TraineeExamData = () => {
                       value={values.obtainedMarks}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className={`block w-full rounded-md border-2 py-2 px-4 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 ${touched.obtainedMarks && errors.obtainedMarks ? 'border-red-500' : ''}`}
+                      className={`block w-full appearance-none rounded-md border-2 py-2 px-4 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 ${touched.obtainedMarks && errors.obtainedMarks ? 'border-red-500' : ''}`}
                     />
                     {touched.obtainedMarks && errors.obtainedMarks && (
                       <div className="text-xs italic text-red-700">{errors.obtainedMarks}</div>

@@ -87,7 +87,7 @@ function BulkEntryXlsx() {
                       value={values.location}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className="block w-full h-9 py-2 px-3 bg-white rounded-md border-0 text-gray-800 ring-1 ring-inset ring-gray-400"
+                      className="block w-full appearance-none h-9 py-2 px-3 bg-white rounded-md border-0 text-gray-800 ring-1 ring-inset ring-gray-400"
                     >
                       <option value="" disabled>Select location</option>
                       {/* Add your location options here */}
