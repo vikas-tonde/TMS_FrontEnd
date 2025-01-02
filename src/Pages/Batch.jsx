@@ -15,7 +15,7 @@ const Batch = () => {
         </Link>
 
         <div className="mt-4 mx-6 shadow-xl rounded-lg p-3 bg-white">
-          
+          {/* Implement Here */}
         </div>
       </div>
     </>
