@@ -4,7 +4,7 @@ const initialState = {
     location: "Pune",
     batch: '',
     trainees: [],
-    locations: [],
+    locations: JSON.parse(localStorage.getItem("locations"))|| [],
 };
 
 function fetchTraineesState(state, action) {
@@ -12,6 +12,7 @@ function fetchTraineesState(state, action) {
 }
 
 function fetchLocations(state, action) {
+    localStorage.setItem("locations", JSON.stringify(action.payload));
     state.locations = action.payload;
 }
 
