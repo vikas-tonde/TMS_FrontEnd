@@ -5,6 +5,8 @@ import { FaDownload } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const bulkUserEntrySchema = object().shape({
   batchName: string().required("Batch Name is Required"),
@@ -13,6 +15,15 @@ const bulkUserEntrySchema = object().shape({
 });
 
 function BulkEntryXlsx() {
+
+  const [locations, setLocations] = useState([]);
+
+  const storedLocations = useSelector(state => state.locations);
+
+  useEffect(() => {
+    setLocations(storedLocations);
+  }, [storedLocations]);
+
   const submitHandler = async (values, actions) => {
     let files = document.querySelector('#userDetailsFile');
     let formdata = new FormData();
@@ -44,6 +55,7 @@ function BulkEntryXlsx() {
   });
 
   return (
+
     <>
       <div className="flex-1 bg-gray-500 bg-opacity-40 pb-6 backdrop-blur-md min-h-screen">
         <Link
@@ -77,9 +89,15 @@ function BulkEntryXlsx() {
                   </div>
                 </div>
 
-                {/* Location */}
+                {/* Location Dropdown */}
                 <div className="flex flex-col sm:flex-row items-start justify-between">
-                  <label htmlFor="location" className="text-gray-700 text-xl font-bold mb-2 sm:mr-4">Location</label>
+                  <label
+                    htmlFor="location"
+                    className="text-gray-700 text-xl font-bold mb-2 sm:mr-4"
+                  >
+                    Select Location
+                  </label>
+
                   <div className="w-full sm:w-96">
                     <select
                       id="location"
@@ -87,10 +105,16 @@ function BulkEntryXlsx() {
                       value={values.location}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className="block w-full appearance-none h-9 py-2 px-3 bg-white rounded-md border-0 text-gray-800 ring-1 ring-inset ring-gray-400"
+                      className="shadow appearance-none block bg-white rounded-md w-full h-9 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
                     >
                       <option value="" disabled>Select location</option>
-                      {/* Add your location options here */}
+                      {locations?.map((location, index) => {
+                        return (
+                          <option key={index} value={location}>
+                            {location}
+                          </option>
+                        )
+                      })}
                     </select>
                     {errors.location && touched.location && <p className="text-[#dc2626]">{errors.location}</p>}
                   </div>
