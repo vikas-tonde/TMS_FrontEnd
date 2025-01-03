@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
-const DropdownWithSearch = ({ data, touchedVal, errorsVal }) => {
+const DropdownWithSearch = ({ fieldName, data, touchedVal, errorsVal }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [search, setSearch] = useState('');
     const [selectedOption, setSelectedOption] = useState('');
     const [options, setOptions] = useState([]);
     const [filteredOptions, setFilteredOptions] = useState([]);
+
+    // Create a ref for the dropdown container
+    const dropdownRef = useRef(null);
 
     const getDisplayValues = () => {
         return data.map((option) => {
@@ -51,6 +54,21 @@ const DropdownWithSearch = ({ data, touchedVal, errorsVal }) => {
         setIsOpen(false);
     };
 
+    // Close dropdown if clicked outside
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     return (
         <>
             <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
@@ -58,9 +76,9 @@ const DropdownWithSearch = ({ data, touchedVal, errorsVal }) => {
                     htmlFor="employeeId"
                     className="block text-xl font-bold text-gray-900 sm:w-1/3 mb-2 sm:mb-0"
                 >
-                    Employee Id
+                    {fieldName}
                 </label>
-                <div className="sm:w-2/3 relative">
+                <div ref={dropdownRef} className="sm:w-2/3 relative">
                     {/* Dropdown Button */}
                     <div
                         onClick={toggleDropdown}

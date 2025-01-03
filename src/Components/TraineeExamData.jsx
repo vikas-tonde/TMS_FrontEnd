@@ -141,7 +141,7 @@ const TraineeExamData = () => {
                 </div>
 
                 {/* Employee ID Selection */}
-                <DropdownWithSearch data={trainees} touchedVal={touched} errorsVal={errors}/>
+                <DropdownWithSearch fieldName={"Employee Id"} data={trainees} touchedVal={touched} errorsVal={errors}/>
                 
                 {/* Assessment Type Selection */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
