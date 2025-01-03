@@ -15,7 +15,7 @@ export default defineConfig({
     host: '0.0.0.0',
     proxy: {
       '/api': {
-        target: `http://${env.VITE_HOSTNAME}`,
+        target: `http://${env.VITE_HOSTNAME}/v2`,
         changeOrigin: true,
         secure: false,
       }

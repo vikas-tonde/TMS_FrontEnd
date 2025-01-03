@@ -8,7 +8,7 @@ const StatisticsTabsMenu = () => {
   const activeLocation = useSelector(state => state.location);
   const locations = useSelector(state => state.locations);
   const dispatch = useDispatch();
-
+  
   const handleTabClick = (location) => {
     dispatch(setActiveLocation(location));
   };

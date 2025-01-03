@@ -54,7 +54,7 @@ const Table = () => {
                   Name
                 </th>
                 <th scope="col" className="py-3 px-2 text-center">
-                  Average Marks
+                Percentage
                 </th>
                 <th scope="col" className="py-3 px-2 text-center">
                   Action
@@ -83,7 +83,7 @@ const Table = () => {
                       </td>
                       <td className="py-2 px-2 text-center">{row.employeeId}</td>
                       <td className="py-2 px-2 text-center">{row.firstName + " " + row.lastName}</td>
-                      <td className="py-2 px-2 text-center">{row.Exams[0]?.averageMarks}</td>
+                      <td className="py-2 px-2 text-center">{row.percentage}</td>
                       <td className="py-2 px-2 text-center">
                         <Link to={`/dashboard/${row.employeeId}`}>
                           <Button className="">

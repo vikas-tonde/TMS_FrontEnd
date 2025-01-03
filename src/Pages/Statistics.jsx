@@ -62,7 +62,7 @@ const Statistics = () => {
                           />
                           <div>
                             <h3 className="text-lg font-medium text-gray-900">{`${entry?.firstName} ${entry?.lastName}`}</h3>
-                            <p className="text-sm text-gray-600">Score: {entry?.Exams[0]?.averageMarks}</p>
+                            <p className="text-sm text-gray-600">Percentage: {entry?.percentage}</p>
                             <p className="text-sm text-gray-600">Email: {entry?.email}</p>
                           </div>
                         </div>

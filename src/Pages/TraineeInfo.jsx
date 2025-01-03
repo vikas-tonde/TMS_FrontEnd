@@ -9,6 +9,7 @@ const TraineeInfo = () => {
   const [remark, setRemark] = useState("");
 
   useEffect(() => {
+    console.log(loaderData);    
     setTrainee({ ...loaderData });
   }, [loaderData]);
 
@@ -21,6 +22,7 @@ const TraineeInfo = () => {
       });
       setTrainee(response.data.data);
       console.log(response.data.data);
+      setRemark("");
     } catch (e) {
       console.log(e);
     }
@@ -76,23 +78,23 @@ const TraineeInfo = () => {
                 />
               </div>
 
-              {/* Average Marks */}
+              {/* Percentage */}
               <div className="flex flex-col sm:flex-row items-center w-full">
                 <label
                   htmlFor="marks"
                   className="text-xl font-bold text-gray-700 w-full sm:w-1/3 mb-2 sm:mb-0"
                 >
-                  Average Marks
+                  Percentage
                 </label>
                 <input
                   type="number"
                   id="marks"
                   name="marks"
                   min="0"
-                  placeholder="Average Marks"
+                  placeholder="Percentage"
                   className="shadow appearance-none block bg-white rounded-md w-full sm:w-2/3 h-9 py-2 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
                   disabled
-                  value={trainee?.averageMarks}
+                  value={trainee?.percentage}
                 />
               </div>
 

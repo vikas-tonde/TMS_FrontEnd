@@ -28,7 +28,7 @@ export function AuthProvider({ children }) {
       setUser(data.user);
 
       const targetPath =
-        data.user.role === "Admin"
+        data.user.role.name === "Admin"
           ? location.state?.from?.pathname || "/dashboard"
           : "/trainee";
 

@@ -44,6 +44,8 @@ export const getTraineeDetails = async ({params})=>{
     const {empId} = params;
     try {
         let response = await api.get(`/api/admin/trainee/${empId}`);
+        console.log(response.data.data);
+        
         return response.data.data;
     } catch (error) {
         return {};

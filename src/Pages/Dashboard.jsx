@@ -14,7 +14,7 @@ const Dashboard = () => {
     (async () =>{
       if(!locations?.length)
       {
-        let response = await api.get("/api/admin/locations");
+        let response = await api.get("/api/admin/locations");        
         dispatch(getLocations(response.data.data));
       }
     })();
