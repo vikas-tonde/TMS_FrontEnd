@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { object, string } from 'yup';
 import api from "../services/api";
 import { Link } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import LocationDropdown from '@/Components/Fetch/LocationDropdown';
 
 const validationSchema = object().shape({
   firstName: string().required('First Name is required'),
@@ -21,17 +21,7 @@ const validationSchema = object().shape({
 
 const SingleEntryUser = () => {
   let batches = useLoaderData();
-
-  // State for managing the selected tab
-  const [locations, setLocations] = useState([]);
-  const [trainees, setTrainees] = useState([]);
   const [selectedTab, setSelectedTab] = useState("newUser");
-
-  const storedLocations = useSelector(state => state.locations);
-
-  useEffect(() => {
-    setLocations(storedLocations);
-  }, [storedLocations]);
 
   const submitHandler = async (values, actions) => {
     try {
@@ -210,35 +200,7 @@ const SingleEntryUser = () => {
                     </div>
 
                     {/* Location Dropdown */}
-                    <div className="flex flex-col sm:flex-row items-start justify-between">
-                      <label
-                        htmlFor="location"
-                        className="text-gray-700 text-xl font-bold mb-2 sm:mr-4"
-                      >
-                        Select Location
-                      </label>
-
-                      <div className="w-full sm:w-96">
-                        <select
-                          id="location"
-                          name="location"
-                          value={values.location}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          className="shadow appearance-none block bg-white rounded-md w-full h-9 px-3 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
-                        >
-                          <option value="" disabled>Select location</option>
-                          {locations?.map((location, index) => {
-                            return (
-                              <option key={index} value={location}>
-                                {location}
-                              </option>
-                            )
-                          })}
-                        </select>
-                        {errors.location && touched.location && <p className="text-[#dc2626]">{errors.location}</p>}
-                      </div>
-                    </div>
+                    <LocationDropdown fieldName={"Select Location"} handleBlur={handleBlur} onChange={handleChange} touched={touched} value={values.location} errors={errors}/>
 
                     {/* Batch */}
                     <div className="flex flex-col sm:flex-row items-start justify-between">
@@ -317,7 +279,9 @@ const SingleEntryUser = () => {
                         </div>
                       </div>
 
-
+                      {/* Locations */}
+                      <LocationDropdown fieldName={"Select Location"} handleBlur={handleBlur} onChange={handleChange} touched={touched} value={values.location} errors={errors}/>
+                      
                       {/* Select User */}
                       <div className="flex flex-col sm:flex-row items-start justify-between">
                         <label
