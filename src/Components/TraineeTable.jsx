@@ -112,7 +112,7 @@ const TraineeTable = () => {
                 autoComplete="off"
                 value={selectedBatch}
                 onChange={(e) => setSelectedBatch(e.target.value)}
-                className="block w-full h-9 px-3 bg-white rounded-md border-0 text-gray-800 ring-1 ring-inset ring-gray-400"
+                className="block appearance-none w-full h-9 px-3 bg-white rounded-md border-0 text-gray-800 ring-1 ring-inset ring-gray-400"
               >
                 <option value="" disabled>
                   Select the batch
