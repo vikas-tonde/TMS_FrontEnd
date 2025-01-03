@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import { number, object, string } from 'yup';
 import api from "../services/api.jsx";
+import DropdownWithSearch from './Fetch/DropdownWithSearch.jsx';
 
 const TraineeExamData = () => {
   let batches = useLoaderData();
@@ -140,35 +141,8 @@ const TraineeExamData = () => {
                 </div>
 
                 {/* Employee ID Selection */}
-                <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
-                  <label
-                    htmlFor="employeeId"
-                    className="block text-xl font-bold text-gray-900 sm:w-1/3 mb-2 sm:mb-0"
-                  >
-                    Employee Id
-                  </label>
-                  <div className="sm:w-2/3">
-                    <select
-                      id="employeeId"
-                      name="employeeId"
-                      value={values.employeeId}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      className={`block w-full appearance-none rounded-md border-2 py-2 px-4 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 ${touched.employeeId && errors.employeeId ? 'border-red-500' : ''}`}
-                    >
-                      <option value="" disabled>Select the employee Id</option>
-                      {trainees.length > 0 && trainees.map(trainee => (
-                        <option key={trainee._id} value={trainee.employeeId}>
-                          ({trainee.employeeId}) {trainee.firstName} {trainee.lastName}
-                        </option>
-                      ))}
-                    </select>
-                    {touched.employeeId && errors.employeeId && (
-                      <div className="text-xs italic text-red-700">{errors.employeeId}</div>
-                    )}
-                  </div>
-                </div>
-
+                <DropdownWithSearch data={trainees} touchedVal={touched} errorsVal={errors}/>
+                
                 {/* Assessment Type Selection */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
                   <label
